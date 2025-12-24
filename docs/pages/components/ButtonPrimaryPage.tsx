@@ -226,7 +226,7 @@ export const ButtonPrimaryPage = () => {
         </PropsTable>
 
         <DocsSubsectionTitle>Typography</DocsSubsectionTitle>
-        <ul style={{ color: colors.neutral[200], lineHeight: 1.6, paddingLeft: spacing[5] }}>
+        <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5] }}>
           <li>Font Family: Satoshi</li>
           <li>Font Weight: Bold (700)</li>
           <li>Line Height: 1</li>
@@ -234,7 +234,7 @@ export const ButtonPrimaryPage = () => {
         </ul>
 
         <DocsSubsectionTitle>Visual Effects</DocsSubsectionTitle>
-        <ul style={{ color: colors.neutral[200], lineHeight: 1.6, paddingLeft: spacing[5] }}>
+        <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5] }}>
           <li>Dual gradient backgrounds with theme-specific alpha values (5% and 25%)</li>
           <li>Inset box shadow for depth (12px blur + 32px bottom shadow at 10% alpha)</li>
           <li>Hover: -1px translateY for lift effect</li>
@@ -262,7 +262,7 @@ export const ButtonPrimaryPage = () => {
           </div>
         </ComponentDemo>
         
-        <ul style={{ color: colors.neutral[200], lineHeight: 1.6, paddingLeft: spacing[5] }}>
+        <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5] }}>
           <li><strong>Default:</strong> Displays with full opacity and gradient background</li>
           <li><strong>Hover:</strong> Subtle lift with -1px vertical translation</li>
           <li><strong>Active:</strong> Returns to default position on click</li>
@@ -276,7 +276,7 @@ export const ButtonPrimaryPage = () => {
         <DocsSectionTitle>Usage Guidelines</DocsSectionTitle>
         
         <DocsSubsectionTitle>When to Use</DocsSubsectionTitle>
-        <ul style={{ color: colors.neutral[200], lineHeight: 1.6, paddingLeft: spacing[5] }}>
+        <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5] }}>
           <li>Primary call-to-action buttons for critical user flows</li>
           <li>Navigation to event category pages</li>
           <li>"View More" or "Explore" actions in content sections</li>
@@ -284,7 +284,7 @@ export const ButtonPrimaryPage = () => {
         </ul>
 
         <DocsSubsectionTitle>Best Practices</DocsSubsectionTitle>
-        <ul style={{ color: colors.neutral[200], lineHeight: 1.6, paddingLeft: spacing[5] }}>
+        <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5] }}>
           <li>Use Big size for primary actions, Small size for secondary or repeated actions</li>
           <li>Match the button theme to the event category context</li>
           <li>Keep button text concise (1-2 words for optimal display)</li>
@@ -293,7 +293,7 @@ export const ButtonPrimaryPage = () => {
         </ul>
 
         <DocsSubsectionTitle>Accessibility</DocsSubsectionTitle>
-        <ul style={{ color: colors.neutral[200], lineHeight: 1.6, paddingLeft: spacing[5] }}>
+        <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5] }}>
           <li>Button has semantic HTML <code>{'<button>'}</code> element</li>
           <li>Includes proper <code>type="button"</code> attribute</li>
           <li>Disabled state prevents interaction and indicates unavailability</li>
