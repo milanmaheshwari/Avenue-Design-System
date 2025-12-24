@@ -69,7 +69,7 @@ const PropsTable = styled.table`
   th, td {
     text-align: left;
     padding: ${spacing[3]} ${spacing[4]};
-    border-bottom: 1px solid ${colors.neutral[800]};
+    border-bottom: 1px solid ${colors.neutral[200]};
   }
 
   th {
@@ -79,7 +79,7 @@ const PropsTable = styled.table`
   }
 
   td {
-    color: ${colors.neutral[200]};
+    color: ${colors.neutral[700]};
   }
 
   code {
