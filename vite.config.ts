@@ -26,7 +26,7 @@ export default defineConfig({
       '@docs': path.resolve(__dirname, './docs'),
     },
   },
-  publicDir: 'assets',
+  publicDir: 'public',
   build: {
     outDir: 'dist',
   },
