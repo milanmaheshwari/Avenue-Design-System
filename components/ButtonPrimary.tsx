@@ -82,9 +82,9 @@ const ButtonContainer = styled.button<{
     inset 0px -8px 32px 0px ${props => themeColors[props.$theme].alpha[10]};
   
   /* Typography */
-  font-family: ${typography.fontFamilies.satoshi};
+  font-family: ${typography.fontFamily.primary};
   font-weight: ${typography.fontWeights.bold};
-  font-size: ${props => props.$size === 'big' ? typography.fontSizes['2xl'] : typography.fontSizes.lg};
+  font-size: ${props => props.$size === 'big' ? '20px' : '16px'};
   line-height: 1;
   letter-spacing: 0;
   color: ${props => themeColors[props.$theme][50]};
