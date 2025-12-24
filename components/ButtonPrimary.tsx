@@ -66,12 +66,12 @@ const ButtonContainer = styled.button<{
   /* Background gradients */
   background-image: 
     linear-gradient(
-      ${props => props.$size === 'big' ? '101.01deg' : '104.68deg'},
+      ${props => props.$size === 'big' ? '95deg' : '104.68deg'},
       ${props => themeColors[props.$theme].alpha[5]} 2.6%,
       ${props => themeColors[props.$theme].alpha[25]} 98.97%
     ),
     linear-gradient(
-      ${props => props.$size === 'big' ? '99.66deg' : '102.90deg'},
+      ${props => props.$size === 'big' ? '94deg' : '102.90deg'},
       ${props => themeColors[props.$theme].alpha[25]} 12.49%,
       ${props => themeColors[props.$theme].alpha[0]} 67.86%
     );
