@@ -5,9 +5,10 @@
 
 import React from 'react';
 import { EventCard } from './EventCard';
+import demoImage from '../assets/fac1b8921d7451f21cc3076e1e09e76dedf851f1.png';
 
 // Demo image
-const DEMO_IMAGE = '/assets/fac1b8921d7451f21cc3076e1e09e76dedf851f1.png';
+const DEMO_IMAGE = demoImage;
 
 export const EventCardExamples = () => {
   return (

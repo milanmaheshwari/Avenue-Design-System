@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { AddItem } from './AddItem';
+import placeholderImage from '../assets/a5561ce6332b43441a50ac1c989d165d124b3efd.png';
 
 // Example 1: Big size with movies category
 export const BigAddItemExample = () => {
@@ -13,7 +14,7 @@ export const BigAddItemExample = () => {
         size="Big"
         title="Official Cosmic Collision Cap- Dark Blue"
         price="$100.00"
-        imageUrl="/assets/cap.png"
+        imageUrl={placeholderImage}
         category="movies"
         onAdd={() => console.log('Added to cart')}
       />
@@ -29,7 +30,7 @@ export const SmallAddItemExample = () => {
         size="Small"
         title="Concert T-Shirt"
         price="$45.00"
-        imageUrl="/assets/tshirt.png"
+        imageUrl={placeholderImage}
         category="music"
         onAdd={() => console.log('Added to cart')}
       />
@@ -44,28 +45,28 @@ export const ProductGridExample = () => {
       id: 1,
       title: 'Official Cosmic Collision Cap- Dark Blue',
       price: '$100.00',
-      imageUrl: '/assets/cap.png',
+      imageUrl: placeholderImage,
       category: 'movies' as const,
     },
     {
       id: 2,
       title: 'Comedy Show Premium Ticket',
       price: '$75.00',
-      imageUrl: '/assets/ticket.png',
+      imageUrl: placeholderImage,
       category: 'comedy' as const,
     },
     {
       id: 3,
       title: 'Sports Jersey - Home Edition',
       price: '$120.00',
-      imageUrl: '/assets/jersey.png',
+      imageUrl: placeholderImage,
       category: 'sports' as const,
     },
     {
       id: 4,
       title: 'Music Festival Pass',
       price: '$250.00',
-      imageUrl: '/assets/pass.png',
+      imageUrl: placeholderImage,
       category: 'music' as const,
     },
   ];
@@ -122,7 +123,7 @@ export const ResponsiveGridExample = () => {
         size={isMobile ? 'Small' : 'Big'}
         title="Official Cosmic Collision Cap- Dark Blue"
         price="$100.00"
-        imageUrl="/assets/cap.png"
+        imageUrl={placeholderImage}
         category="movies"
         onAdd={() => console.log('Added to cart')}
       />
@@ -158,7 +159,7 @@ export const AllCategoriesExample = () => {
           size="Small"
           title={`${category.name.charAt(0).toUpperCase() + category.name.slice(1)} Item`}
           price="$50.00"
-          imageUrl="/assets/placeholder.png"
+          imageUrl={placeholderImage}
           category={category.name}
           onAdd={() => console.log(`Added ${category.name} item`)}
         />
