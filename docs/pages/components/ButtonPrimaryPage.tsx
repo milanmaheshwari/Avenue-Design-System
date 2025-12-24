@@ -74,7 +74,7 @@ const PropsTable = styled.table`
 
   th {
     color: ${colors.neutral[50]};
-    font-weight: ${typography.fontWeights.semibold};
+    font-weight: ${typography.fontWeights.bold};
     background-color: ${colors.neutral[900]};
   }
 
