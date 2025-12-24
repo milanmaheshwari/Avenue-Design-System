@@ -44,10 +44,12 @@ const VariantCard = styled.div`
 `;
 
 const VariantLabel = styled.div`
-  color: ${colors.neutral[400]};
-  font-size: 14px;
-  margin-bottom: ${spacing[3]};
+  font-family: ${typography.fontFamily.primary};
+  font-size: ${typography.desktop.body.medium[300].fontSize};
   font-weight: ${typography.fontWeights.medium};
+  color: ${colors.neutral.light.alpha[90]};
+  margin-bottom: ${spacing[4]};
+  text-align: center;
 `;
 
 const VariantPreview = styled.div`
@@ -60,35 +62,38 @@ const VariantPreview = styled.div`
   min-height: 80px;
 `;
 
-const PropsTable = styled.table`
+const SpecTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
-  font-size: 14px;
+  font-family: ${typography.fontFamily.primary};
+  font-size: ${typography.desktop.body.regular[400].fontSize};
+`;
 
-  th, td {
-    text-align: left;
-    padding: ${spacing[3]} ${spacing[4]};
-    border-bottom: 1px solid ${colors.neutral[200]};
-  }
+const TableHead = styled.thead`
+  background-color: ${colors.neutral[100]};
+`;
 
-  th {
-    color: ${colors.neutral[50]};
-    font-weight: ${typography.fontWeights.bold};
-    background-color: ${colors.neutral[900]};
-  }
+const TableRow = styled.tr`
+  border-bottom: 1px solid ${colors.neutral[200]};
+`;
 
-  td {
-    color: ${colors.neutral[700]};
-  }
+const TableHeader = styled.th`
+  text-align: left;
+  padding: ${spacing[3]} ${spacing[4]};
+  font-weight: ${typography.fontWeights.bold};
+  color: ${colors.neutral[900]};
+`;
 
-  code {
-    background-color: ${colors.neutral[900]};
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-    color: ${colors.primary[400]};
-  }
+const TableCell = styled.td`
+  padding: ${spacing[3]} ${spacing[4]};
+  color: ${colors.neutral[600]};
+`;
+
+const CodeCell = styled(TableCell)`
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 13px;
+  color: ${colors.primary[600]};
 `;
 
 const ThemeGrid = styled.div`
@@ -197,33 +202,33 @@ export const ButtonPrimaryPage = () => {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Dimensions</DocsSubsectionTitle>
-        <PropsTable>
-          <thead>
-            <tr>
-              <th>Size</th>
-              <th>Width</th>
-              <th>Padding</th>
-              <th>Border Radius</th>
-              <th>Font Size</th>
-            </tr>
-          </thead>
+        <SpecTable>
+          <TableHead>
+            <TableRow>
+              <TableHeader>Size</TableHeader>
+              <TableHeader>Width</TableHeader>
+              <TableHeader>Padding</TableHeader>
+              <TableHeader>Border Radius</TableHeader>
+              <TableHeader>Font Size</TableHeader>
+            </TableRow>
+          </TableHead>
           <tbody>
-            <tr>
-              <td><code>big</code></td>
-              <td>160px</td>
-              <td>24px</td>
-              <td>16px</td>
-              <td>20px</td>
-            </tr>
-            <tr>
-              <td><code>small</code></td>
-              <td>152px</td>
-              <td>16px</td>
-              <td>12px</td>
-              <td>16px</td>
-            </tr>
+            <TableRow>
+              <CodeCell>big</CodeCell>
+              <TableCell>160px</TableCell>
+              <TableCell>24px</TableCell>
+              <TableCell>16px</TableCell>
+              <TableCell>20px</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>small</CodeCell>
+              <TableCell>152px</TableCell>
+              <TableCell>16px</TableCell>
+              <TableCell>12px</TableCell>
+              <TableCell>16px</TableCell>
+            </TableRow>
           </tbody>
-        </PropsTable>
+        </SpecTable>
 
         <DocsSubsectionTitle>Typography</DocsSubsectionTitle>
         <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5] }}>
@@ -305,107 +310,107 @@ export const ButtonPrimaryPage = () => {
       {/* Props API */}
       <DocsSection>
         <DocsSectionTitle>Props</DocsSectionTitle>
-        <PropsTable>
-          <thead>
-            <tr>
-              <th>Prop</th>
-              <th>Type</th>
-              <th>Default</th>
-              <th>Description</th>
-            </tr>
-          </thead>
+        <SpecTable>
+          <TableHead>
+            <TableRow>
+              <TableHeader>Prop</TableHeader>
+              <TableHeader>Type</TableHeader>
+              <TableHeader>Default</TableHeader>
+              <TableHeader>Description</TableHeader>
+            </TableRow>
+          </TableHead>
           <tbody>
-            <tr>
-              <td><code>children</code></td>
-              <td><code>ReactNode</code></td>
-              <td><code>'Button'</code></td>
-              <td>Button text content</td>
-            </tr>
-            <tr>
-              <td><code>size</code></td>
-              <td><code>'big' | 'small'</code></td>
-              <td><code>'big'</code></td>
-              <td>Size variant of the button</td>
-            </tr>
-            <tr>
-              <td><code>theme</code></td>
-              <td><code>ButtonTheme</code></td>
-              <td><code>'wellness'</code></td>
-              <td>Theme color variant (8 options)</td>
-            </tr>
-            <tr>
-              <td><code>onClick</code></td>
-              <td><code>{'() => void'}</code></td>
-              <td><code>undefined</code></td>
-              <td>Click handler function</td>
-            </tr>
-            <tr>
-              <td><code>disabled</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
-              <td>Disabled state</td>
-            </tr>
-            <tr>
-              <td><code>className</code></td>
-              <td><code>string</code></td>
-              <td><code>undefined</code></td>
-              <td>Additional CSS class</td>
-            </tr>
+            <TableRow>
+              <CodeCell>children</CodeCell>
+              <CodeCell>ReactNode</CodeCell>
+              <CodeCell>'Button'</CodeCell>
+              <TableCell>Button text content</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>size</CodeCell>
+              <CodeCell>'big' | 'small'</CodeCell>
+              <CodeCell>'big'</CodeCell>
+              <TableCell>Size variant of the button</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>theme</CodeCell>
+              <CodeCell>ButtonTheme</CodeCell>
+              <CodeCell>'wellness'</CodeCell>
+              <TableCell>Theme color variant (8 options)</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>onClick</CodeCell>
+              <CodeCell>{'() => void'}</CodeCell>
+              <CodeCell>undefined</CodeCell>
+              <TableCell>Click handler function</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>disabled</CodeCell>
+              <CodeCell>boolean</CodeCell>
+              <CodeCell>false</CodeCell>
+              <TableCell>Disabled state</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>className</CodeCell>
+              <CodeCell>string</CodeCell>
+              <CodeCell>undefined</CodeCell>
+              <TableCell>Additional CSS class</TableCell>
+            </TableRow>
           </tbody>
-        </PropsTable>
+        </SpecTable>
 
         <DocsSubsectionTitle>Theme Options</DocsSubsectionTitle>
-        <PropsTable>
-          <thead>
-            <tr>
-              <th>Theme</th>
-              <th>Use Case</th>
-              <th>Color</th>
-            </tr>
-          </thead>
+        <SpecTable>
+          <TableHead>
+            <TableRow>
+              <TableHeader>Theme</TableHeader>
+              <TableHeader>Use Case</TableHeader>
+              <TableHeader>Color</TableHeader>
+            </TableRow>
+          </TableHead>
           <tbody>
-            <tr>
-              <td><code>wellness</code></td>
-              <td>Wellness & health events</td>
-              <td>Green</td>
-            </tr>
-            <tr>
-              <td><code>music</code></td>
-              <td>Music concerts & festivals</td>
-              <td>Magenta</td>
-            </tr>
-            <tr>
-              <td><code>nightlife</code></td>
-              <td>Night parties & clubs</td>
-              <td>Purple</td>
-            </tr>
-            <tr>
-              <td><code>coffee</code></td>
-              <td>Coffee meetups & socials</td>
-              <td>Brown</td>
-            </tr>
-            <tr>
-              <td><code>sports</code></td>
-              <td>Sports events & games</td>
-              <td>Orange</td>
-            </tr>
-            <tr>
-              <td><code>movies</code></td>
-              <td>Movie screenings</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <td><code>comedy</code></td>
-              <td>Comedy shows & standup</td>
-              <td>Yellow</td>
-            </tr>
-            <tr>
-              <td><code>themeParks</code></td>
-              <td>Theme parks & attractions</td>
-              <td>Blue</td>
-            </tr>
+            <TableRow>
+              <CodeCell>wellness</CodeCell>
+              <TableCell>Wellness & health events</TableCell>
+              <TableCell>Green</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>music</CodeCell>
+              <TableCell>Music concerts & festivals</TableCell>
+              <TableCell>Magenta</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>nightlife</CodeCell>
+              <TableCell>Night parties & clubs</TableCell>
+              <TableCell>Purple</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>coffee</CodeCell>
+              <TableCell>Coffee meetups & socials</TableCell>
+              <TableCell>Brown</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>sports</CodeCell>
+              <TableCell>Sports events & games</TableCell>
+              <TableCell>Orange</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>movies</CodeCell>
+              <TableCell>Movie screenings</TableCell>
+              <TableCell>Red</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>comedy</CodeCell>
+              <TableCell>Comedy shows & standup</TableCell>
+              <TableCell>Yellow</TableCell>
+            </TableRow>
+            <TableRow>
+              <CodeCell>themeParks</CodeCell>
+              <TableCell>Theme parks & attractions</TableCell>
+              <TableCell>Blue</TableCell>
+            </TableRow>
           </tbody>
-        </PropsTable>
+        </SpecTable>
       </DocsSection>
 
       {/* Developer Code */}
