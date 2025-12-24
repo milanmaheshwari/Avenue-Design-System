@@ -16,9 +16,10 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import demoImage from '../../../assets/a5561ce6332b43441a50ac1c989d165d124b3efd.png';
 
-// Demo image placeholder - Vite serves assets/ as public directory
-const DEMO_IMAGE = '/a5561ce6332b43441a50ac1c989d165d124b3efd.png';
+// Demo image placeholder
+const DEMO_IMAGE = demoImage;
 
 const ComponentDemo = styled.div`
   background-color: ${colors.neutral[950]};

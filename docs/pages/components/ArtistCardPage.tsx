@@ -16,10 +16,12 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import demoImage1 from '../../../assets/fae9216881de499113dd7791f82ff50e3aaa7af1.png';
+import demoImage2 from '../../../assets/fd092aafde0b7229084b06b4cb61662024365b50.png';
 
 // Demo images
-const DEMO_IMAGE_1 = '/assets/fae9216881de499113dd7791f82ff50e3aaa7af1.png';
-const DEMO_IMAGE_2 = '/assets/fd092aafde0b7229084b06b4cb61662024365b50.png';
+const DEMO_IMAGE_1 = demoImage1;
+const DEMO_IMAGE_2 = demoImage2;
 
 const ComponentDemo = styled.div`
   background-color: ${colors.neutral[950]};
