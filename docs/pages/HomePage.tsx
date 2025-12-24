@@ -131,7 +131,7 @@ export const HomePage: React.FC = () => {
 
       <StatsGrid>
         <StatCard>
-          <StatNumber>5</StatNumber>
+          <StatNumber>6</StatNumber>
           <StatLabel>Components</StatLabel>
         </StatCard>
         <StatCard>

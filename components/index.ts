@@ -12,6 +12,9 @@ export type { AppNavBarProps, NavTab } from './AppNavBar';
 export { ArtistCard } from './ArtistCard';
 export type { ArtistCardProps, ArtistCategory, ArtistCardSize } from './ArtistCard';
 
+export { ButtonPrimary } from './ButtonPrimary';
+export type { ButtonPrimaryProps, ButtonTheme, ButtonSize } from './ButtonPrimary';
+
 export { EventCard } from './EventCard';
 export type { EventCardProps, EventTheme, EventCardSize, EventCardType } from './EventCard';
 

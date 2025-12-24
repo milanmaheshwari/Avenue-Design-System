@@ -16,7 +16,11 @@ A mobile navigation bar with glassmorphic styling and four primary navigation ta
 
 A card component for displaying artist/performer information with category-themed styling. Supports Music and Comedy categories.
 
-### 4. EventCard
+### 4. ButtonPrimary
+
+A themeable call-to-action button with gradient backgrounds and arrow indicator. Supports 8 theme colors aligned with event categories.
+
+### 5. EventCard
 
 A comprehensive card component for displaying event information with theme-based styling, multiple size variants, and optional trending indicators.
 
@@ -227,6 +231,72 @@ The component uses the following design tokens:
 
 ---
 
+### 4. ButtonPrimary (continued)
+
+**Props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | `'Button'` | Button text content |
+| `size` | `'big' \| 'small'` | `'big'` | Size variant of the button |
+| `theme` | `ButtonTheme` | `'wellness'` | Theme color variant |
+| `onClick` | `() => void` | Optional | Click handler function |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `className` | `string` | Optional | Additional CSS class |
+
+**Usage:**
+
+```tsx
+import { ButtonPrimary } from '@avenue/design-system/components';
+
+function CategorySection() {
+  return (
+    <section>
+      <h2>Music Events</h2>
+      {/* Event cards */}
+      <ButtonPrimary
+        size="small"
+        theme="music"
+        onClick={() => navigate('/events/music')}
+      >
+        View More
+      </ButtonPrimary>
+    </section>
+  );
+}
+```
+
+**Tokens Used:**
+
+The component uses the following design tokens:
+
+- **Colors:**
+  - `colors[theme].alpha[5]` - First gradient stop
+  - `colors[theme].alpha[25]` - Second gradient stop
+  - `colors[theme].alpha[10]` - Inset shadow
+  - `colors[theme][50]` - Text color
+
+- **Typography:**
+  - Font Family: Satoshi Bold
+  - Big: 20px, Small: 16px
+  - Line height: 1, Letter spacing: 0
+
+- **Spacing:**
+  - Big: padding `spacing[6]` (24px), border-radius 16px
+  - Small: padding `spacing[4]` (16px), border-radius 12px
+  - Gap: `spacing[2]` (8px) between text and arrow
+
+- **Effects:**
+  - Dual gradient backgrounds with theme-specific alpha values
+  - Inset box shadow: 12px blur + 32px bottom shadow
+  - Hover: -1px translateY for lift effect
+
+**Theme Options:**
+
+`wellness` (green), `music` (magenta), `nightlife` (purple), `coffee` (brown), `sports` (orange), `movies` (red), `comedy` (yellow), `themeParks` (blue)
+
+---
+
 ### 5. EventCard
 
 A comprehensive card component for displaying event information with rich visual styling.
@@ -326,7 +396,7 @@ All components are built using the Avenue Design System tokens, ensuring:
 - ✅ Theme-able with category colors
 - ✅ Performance optimized
 
-### 5. Topbar
+### 6. Topbar
 
 A versatile navigation header with glassmorphic styling. Built to match Figma exactly with **9 distinct variants**.
 

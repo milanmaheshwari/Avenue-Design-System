@@ -14,6 +14,7 @@ import { SpacingPage } from './pages/foundations/SpacingPage';
 import { AddItemPage } from './pages/components/AddItemPage';
 import { AppNavBarPage } from './pages/components/AppNavBarPage';
 import { ArtistCardPage } from './pages/components/ArtistCardPage';
+import { ButtonPrimaryPage } from './pages/components/ButtonPrimaryPage';
 import { EventCardPage } from './pages/components/EventCardPage';
 import { TopbarPage } from './pages/components/TopbarPage';
 
@@ -53,6 +54,8 @@ export const App: React.FC = () => {
         return <AppNavBarPage />;
       case '/components/artist-card':
         return <ArtistCardPage />;
+      case '/components/button-primary':
+        return <ButtonPrimaryPage />;
       case '/components/event-card':
         return <EventCardPage />;
       case '/components/topbar':
