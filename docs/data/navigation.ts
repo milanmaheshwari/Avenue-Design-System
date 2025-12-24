@@ -28,6 +28,7 @@ export const navigation: NavCategory[] = [
       { title: 'Add Item', href: '/components/add-item' },
       { title: 'App Nav Bar', href: '/components/app-nav-bar' },
       { title: 'Artist Card', href: '/components/artist-card' },
+      { title: 'Button Highlighted', href: '/components/button-highlighted' },
       { title: 'Button Primary', href: '/components/button-primary' },
       { title: 'Event Card', href: '/components/event-card' },
       { title: 'Topbar', href: '/components/topbar' },
