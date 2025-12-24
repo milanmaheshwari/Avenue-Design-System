@@ -45,7 +45,7 @@ const VariantCard = styled.div`
 
 const VariantLabel = styled.div`
   color: ${colors.neutral[400]};
-  font-size: ${typography.fontSizes.sm};
+  font-size: 14px;
   margin-bottom: ${spacing[3]};
   font-weight: ${typography.fontWeights.medium};
 `;
@@ -64,7 +64,7 @@ const PropsTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
-  font-size: ${typography.fontSizes.sm};
+  font-size: 14px;
 
   th, td {
     text-align: left;
@@ -86,7 +86,7 @@ const PropsTable = styled.table`
     background-color: ${colors.neutral[900]};
     padding: 2px 6px;
     border-radius: 4px;
-    font-size: ${typography.fontSizes.xs};
+    font-size: 12px;
     color: ${colors.primary[400]};
   }
 `;
@@ -166,7 +166,7 @@ export const ButtonPrimaryPage = () => {
         </DocsParagraph>
         
         <div style={{ marginBottom: spacing[6] }}>
-          <h4 style={{ color: colors.neutral[50], marginBottom: spacing[3], fontSize: typography.fontSizes.base }}>
+          <h4 style={{ color: colors.neutral[50], marginBottom: spacing[3], fontSize: '16px' }}>
             Big Size Themes
           </h4>
           <ThemeGrid>
@@ -179,7 +179,7 @@ export const ButtonPrimaryPage = () => {
         </div>
         
         <div>
-          <h4 style={{ color: colors.neutral[50], marginBottom: spacing[3], fontSize: typography.fontSizes.base }}>
+          <h4 style={{ color: colors.neutral[50], marginBottom: spacing[3], fontSize: '16px' }}>
             Small Size Themes
           </h4>
           <ThemeGrid>
