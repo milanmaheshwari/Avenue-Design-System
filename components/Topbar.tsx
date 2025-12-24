@@ -11,6 +11,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colors, spacing, typography } from '../tokens';
+import { ButtonHighlighted } from './ButtonHighlighted';
 
 // Exact types from Figma
 export type TopbarType = 'Web' | 'App';
@@ -207,47 +208,7 @@ const NavLinkButton = styled.button`
   }
 `;
 
-const SignUpButton = styled.button<{ $variant: 'default' | 'neutral' }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${spacing[1]};
-  padding: ${spacing[3]} ${spacing[4]};
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-family: ${typography.fontFamily.primary};
-  font-size: ${typography.desktop.button[300].fontSize};
-  font-weight: ${typography.fontWeights.bold};
-  line-height: 1;
-  color: ${colors.neutral[50]};
-  white-space: nowrap;
-  transition: transform 200ms ease, opacity 200ms ease;
-  
-  background-image: ${props => props.$variant === 'neutral' ? `
-    linear-gradient(90deg, ${colors.neutral.light.alpha[5]} 0%, ${colors.neutral.light.alpha[10]} 50%, ${colors.neutral.light.alpha[5]} 100%),
-    url('data:image/svg+xml;utf8,<svg viewBox="0 0 112 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><rect x="0" y="0" height="100%" width="100%" fill="url(%23grad)" opacity="1"/><defs><radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="10" gradientTransform="matrix(25.977 0 0 9.2776 56 40)"><stop stop-color="rgba(250,250,250,0.25)" offset="0"/><stop stop-color="rgba(250,250,250,0)" offset="0.2524"/></radialGradient></defs></svg>'),
-    linear-gradient(180deg, ${colors.neutral.light.alpha[0]} 0%, ${colors.neutral.light.alpha[5]} 100%)
-  ` : `
-    linear-gradient(90deg, ${colors.primary.alpha[5]} 0%, ${colors.primary.alpha[10]} 50%, ${colors.primary.alpha[5]} 100%),
-    url('data:image/svg+xml;utf8,<svg viewBox="0 0 111 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><rect x="0" y="0" height="100%" width="100%" fill="url(%23grad)" opacity="1"/><defs><radialGradient id="grad" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="10" gradientTransform="matrix(25.745 0 0 9.2776 55.5 40)"><stop stop-color="rgba(79,70,229,0.5)" offset="0"/><stop stop-color="rgba(79,70,229,0)" offset="0.2524"/></radialGradient></defs></svg>'),
-    linear-gradient(180deg, ${colors.primary.alpha[0]} 0%, ${colors.primary.alpha[5]} 100%)
-  `};
-  
-  box-shadow: ${props => props.$variant === 'neutral' ? 
-    `0px 2px 5px 0px ${colors.neutral.light.alpha[5]}, inset 0px 0px 12px 0px ${colors.neutral.light.alpha[5]}, inset 0px -8px 32px 0px ${colors.neutral.light.alpha[5]}` : 
-    `0px 2px 5px 0px ${colors.primary.alpha[5]}, inset 0px 0px 12px 0px ${colors.primary.alpha[5]}, inset 0px -8px 32px 0px ${colors.primary.alpha[10]}`
-  };
-  
-  &:hover {
-    transform: translateY(-1px);
-    opacity: 0.95;
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-`;
+// SignUpButton is now replaced with ButtonHighlighted component
 
 const MenuButton = styled.button`
   width: 24px;
@@ -414,10 +375,12 @@ export const Topbar: React.FC<TopbarProps> = ({
               )}
             </NavLinks>
             {showSignUpButton && onSignUp && (
-              <SignUpButton $variant={buttonVariant} onClick={onSignUp}>
+              <ButtonHighlighted 
+                type={buttonVariant === 'neutral' ? 'neutral' : 'primary'}
+                onClick={onSignUp}
+              >
                 Sign Up
-                <span style={{ fontSize: '16px' }}>→</span>
-              </SignUpButton>
+              </ButtonHighlighted>
             )}
           </RightSection>
         </MainContent>

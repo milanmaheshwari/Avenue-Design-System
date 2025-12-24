@@ -518,6 +518,16 @@ export const TopbarPage: React.FC = () => {
         <DocsParagraph>
           <strong>Effects:</strong> backdrop-filter: blur(20px), radial gradient dividers, inset shadows
         </DocsParagraph>
+
+        <DocsSubsectionTitle>Composed Components</DocsSubsectionTitle>
+        <DocsParagraph>
+          The Topbar component uses <strong>ButtonHighlighted</strong> for the Sign Up button in Web, Big variants (Default and Neutral states). 
+          The button automatically adapts its type (primary or neutral) based on the Topbar state.
+        </DocsParagraph>
+        <ul style={{ color: colors.neutral[700], lineHeight: 1.6, paddingLeft: spacing[5], marginTop: spacing[3] }}>
+          <li><strong>Default state:</strong> Uses ButtonHighlighted with type="primary"</li>
+          <li><strong>Neutral state:</strong> Uses ButtonHighlighted with type="neutral"</li>
+        </ul>
       </DocsSection>
 
       {/* Behavior */}
