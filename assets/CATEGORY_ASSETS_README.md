@@ -43,6 +43,7 @@ curl -o category-themeparks.png "http://localhost:3845/assets/f5417315f73c03dc08
 
 ## Notes
 
-- The CategoryCard component is fully functional without these assets, but will show placeholder icons and broken image links
+- The CategoryCard component imports these images directly from the assets folder for proper deployment
+- After downloading, the images are bundled with the application and will work in production
 - Icons can be customized by passing a custom `icon` prop to the CategoryCard component
 - Images can be customized by passing a custom `imageUrl` prop to the CategoryCard component

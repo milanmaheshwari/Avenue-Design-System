@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon">
+<rect width="40" height="40" rx="12" fill="url(#paint0_linear_963_15473)"/>
+<rect x="0.5" y="0.5" width="39" height="39" rx="11.5" stroke="var(--stroke-0, #FAFAFA)" stroke-opacity="0.1"/>
+<path id="Vector" d="M19 10V13M23 10V13M24.6842 17C24.9634 17 25.2311 17.1054 25.4285 17.2929C25.6259 17.4804 25.7368 17.7348 25.7368 18V26C25.7368 27.0609 25.2932 28.0783 24.5036 28.8284C23.714 29.5786 22.643 30 21.5263 30H15.2105C14.0938 30 13.0229 29.5786 12.2332 28.8284C11.4436 28.0783 11 27.0609 11 26V18C11 17.7348 11.1109 17.4804 11.3083 17.2929C11.5057 17.1054 11.7735 17 12.0526 17H26.7895C27.9062 17 28.9771 17.4214 29.7668 18.1716C30.5564 18.9217 31 19.9391 31 21C31 22.0609 30.5564 23.0783 29.7668 23.8284C28.9771 24.5786 27.9062 25 26.7895 25H25.7368M14 10V13" stroke="var(--stroke-0, #FDF8F6)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_963_15473" x1="6.5" y1="-3" x2="23.5" y2="46.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FAFAFA" stop-opacity="0.1"/>
+<stop offset="1" stop-color="#FAFAFA" stop-opacity="0.05"/>
+</linearGradient>
+</defs>
+</svg>

@@ -7,15 +7,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors, spacing, typography } from '../tokens';
 
-// Category image URLs from Figma
-const categoryMusic = 'http://localhost:3845/assets/8b69c147bc89f3d328bd03bc1feec1e058214bd9.png';
-const categoryNightlife = 'http://localhost:3845/assets/f8a07e6bf6825d62c02876d0fe17f37281ebff79.png';
-const categoryCoffee = 'http://localhost:3845/assets/9faf841b6acf305e366bde0b263681cccf2b1c71.png';
-const categorySports = 'http://localhost:3845/assets/e11cd373cec97f96673d91e50e2ae9765b8ab20d.png';
-const categoryMovies = 'http://localhost:3845/assets/f45fbec5d56ec1978d72eb3b635c3076e2b12255.png';
-const categoryComedy = 'http://localhost:3845/assets/a210fbced2fa4fc5fc88a72d3ef7fca17ceb5759.png';
-const categoryWellness = 'http://localhost:3845/assets/e3e3c14b5f568222d9ee6cfee2c15d1e0eae3c49.png';
-const categoryThemeParks = 'http://localhost:3845/assets/f5417315f73c03dc08fd63948458fcf13310069a.png';
+// Category images imported from assets folder
+import categoryMusic from '../assets/category-music.png';
+import categoryNightlife from '../assets/category-nightlife.png';
+import categoryCoffee from '../assets/category-coffee.png';
+import categorySports from '../assets/category-sports.png';
+import categoryMovies from '../assets/category-movies.png';
+import categoryComedy from '../assets/category-comedy.png';
+import categoryWellness from '../assets/category-wellness.png';
+import categoryThemeParks from '../assets/category-themeparks.png';
 
 export type CategoryTheme = 
   | 'music' 
@@ -98,7 +98,7 @@ const themeConfig: Record<CategoryTheme, {
     defaultSubtitle: 'Find the latest movie releases in theatres near you',
   },
   comedy: {
-    gradient: 'radial-gradient(ellipse 15px 33.358px at 50% 50%, rgba(217,119,6,1) 0%, rgba(169,86,11,1) 50%, rgba(120,53,15,1) 100%)',
+    gradient: 'radial-gradient(ellipse at 50% 50%, rgba(21, 128, 61, 1) 0%, rgba(13, 87, 42, 1) 50%, rgba(5, 46, 22, 1) 100%)',
     color: colors.comedy[50],
     shadowColor: colors.comedy.alpha[5],
     image: categoryComedy,
@@ -114,7 +114,7 @@ const themeConfig: Record<CategoryTheme, {
     defaultSubtitle: 'Find your inner peace with yoga and meditation events',
   },
   themeParks: {
-    gradient: 'radial-gradient(ellipse 15px 33.358px at 50% 50%, rgba(29,78,216,1) 0%, rgba(26,58,150,1) 50%, rgba(25,47,117,1) 75%, rgba(23,37,84,1) 100%)',
+    gradient: 'radial-gradient(ellipse at 50% 50%, rgba(29, 78, 216, 1) 0%, rgba(26, 58, 150, 1) 35%, rgba(25, 47, 117, 1) 65%, rgba(23, 37, 84, 1) 100%)',
     color: colors.themeParks[50],
     shadowColor: colors.themeParks.alpha[5],
     image: categoryThemeParks,

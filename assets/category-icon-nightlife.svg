@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon">
+<rect width="24" height="24" rx="8" fill="url(#paint0_linear_963_15479)"/>
+<rect x="0.5" y="0.5" width="23" height="23" rx="7.5" stroke="var(--stroke-0, #FAFAFA)" stroke-opacity="0.1"/>
+<path id="Vector" d="M16.9996 12.2663C16.9475 13.2314 16.6169 14.1609 16.0479 14.9422C15.4788 15.7235 14.6956 16.3233 13.793 16.669C12.8903 17.0147 11.9068 17.0916 10.9614 16.8903C10.016 16.689 9.14918 16.2182 8.46566 15.5347C7.78214 14.8513 7.31122 13.9845 7.10982 13.0391C6.90842 12.0937 6.98516 11.1102 7.33078 10.2075C7.6764 9.30482 8.27608 8.52156 9.05735 7.95241C9.83862 7.38327 10.768 7.05261 11.7332 7.0004C11.9584 6.98817 12.0762 7.25614 11.9567 7.44682C11.5569 8.08646 11.3857 8.84271 11.4711 9.59216C11.5564 10.3416 11.8933 11.04 12.4266 11.5734C12.96 12.1067 13.6584 12.4436 14.4078 12.5289C15.1573 12.6143 15.9135 12.4431 16.5532 12.0433C16.7444 11.9238 17.0118 12.0411 16.9996 12.2663Z" stroke="var(--stroke-0, #FAF5FF)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_963_15479" x1="3.9" y1="-1.8" x2="14.1" y2="27.9" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FAFAFA" stop-opacity="0.1"/>
+<stop offset="1" stop-color="#FAFAFA" stop-opacity="0.05"/>
+</linearGradient>
+</defs>
+</svg>
