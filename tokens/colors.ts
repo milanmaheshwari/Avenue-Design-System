@@ -239,17 +239,13 @@ export const colors = {
     },
   },
 
-  // Semantic Colors (Aliases to base colors)
+  // Semantic Colors
   semantic: {
-    labelsPrimary: '#FFFFFF', // Alias to neutral/50 in light mode
-    error: '#dc2626', // Alias to movies/600
+    success: '#16a34a',
+    info: '#2563eb',
+    error: '#dc2626',
+    warning: '#ca8a04',
   },
-} as const;
-
-// Color aliases for semantic usage
-export const colorAliases = {
-  labelsPrimary: colors.neutral[50],
-  error: colors.movies[600],
 } as const;
 
 export type Colors = typeof colors;
