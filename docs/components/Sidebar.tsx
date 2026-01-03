@@ -25,13 +25,20 @@ const SidebarContainer = styled.aside`
   z-index: 100;
 `;
 
-const Logo = styled.div`
+const Logo = styled.a`
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.heading[600].fontSize};
   font-weight: ${typography.fontWeights.bold};
   color: ${colors.neutral[900]};
   margin-bottom: ${spacing[8]};
   letter-spacing: ${typography.desktop.heading[600].letterSpacing};
+  text-decoration: none;
+  display: block;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    color: ${colors.primary[600]};
+  }
 `;
 
 const NavSection = styled.nav`
@@ -92,7 +99,7 @@ const NavLink = styled.a<{ $isActive?: boolean }>`
 export const Sidebar: React.FC<SidebarProps> = ({ currentPath = '/' }) => {
   return (
     <SidebarContainer>
-      <Logo>Avenue Design</Logo>
+      <Logo href="/">Avenue Design System</Logo>
       
       <NavSection>
         {navigation.map((category) => (
