@@ -98,7 +98,7 @@ export const createButtonStyles = (variant: 'primary' | 'secondary' | 'outline' 
   const variants = {
     primary: {
       backgroundColor: colors.primary[600],
-      color: colors.semantic.labelsPrimary,
+      color: colors.neutral[50],
       '&:hover': {
         backgroundColor: colors.primary[700],
       },

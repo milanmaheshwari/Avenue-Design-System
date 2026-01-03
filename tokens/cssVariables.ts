@@ -51,8 +51,10 @@ export const generateCSSVariables = () => {
   });
 
   // Colors - Semantic
-  cssVars.push(`  --color-labels-primary: ${colors.semantic.labelsPrimary};`);
-  cssVars.push(`  --color-error: ${colors.semantic.error};`);
+  cssVars.push(`  --color-semantic-success: ${colors.semantic.success};`);
+  cssVars.push(`  --color-semantic-info: ${colors.semantic.info};`);
+  cssVars.push(`  --color-semantic-error: ${colors.semantic.error};`);
+  cssVars.push(`  --color-semantic-warning: ${colors.semantic.warning};`);
 
   // Spacing
   Object.entries(spacing).forEach(([key, value]) => {

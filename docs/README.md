@@ -192,9 +192,6 @@ All styles use design tokens from `tokens/`:
 - Colors: `colors.*`
 - Typography: `typography.*`
 - Spacing: `spacing.*`
-- Shadows: `shadows.*`
-- Borders: `theme.borders.*`
-- Transitions: `theme.transitions.*`
 
 ## 📦 Dependencies
 

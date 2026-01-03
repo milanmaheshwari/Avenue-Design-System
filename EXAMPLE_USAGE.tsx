@@ -5,7 +5,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { theme, colors, typography, spacing, shadows } from './tokens';
+import { colors, typography, spacing } from './tokens';
 
 // ============================================================================
 // Example 1: Basic Button with Tokens
@@ -14,29 +14,25 @@ import { theme, colors, typography, spacing, shadows } from './tokens';
 const PrimaryButton = styled.button`
   /* Colors */
   background-color: ${colors.primary[600]};
-  color: ${colors.semantic.labelsPrimary};
+  color: ${colors.neutral[50]};
 
   /* Typography */
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.button[300].fontSize};
-  font-weight: ${typography.desktop.button[300].fontWeight};
+  font-weight: ${typography.fontWeights.bold};
 
   /* Spacing */
   padding: ${spacing[4]} ${spacing[6]};
 
-  /* Borders */
+  /* Styling */
   border: none;
-  border-radius: ${theme.borders.radius.md};
-
-  /* Effects */
-  box-shadow: ${shadows.sm};
-  transition: ${theme.transitions.default};
+  border-radius: 12px;
   cursor: pointer;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Hover state */
   &:hover {
     background-color: ${colors.primary[700]};
-    box-shadow: ${shadows.md};
   }
 
   /* Active state */
@@ -64,13 +60,12 @@ interface CategoryCardProps {
 
 const CardContainer = styled.div<{ categoryColor: string }>`
   background-color: ${colors.neutral[50]};
-  border-radius: ${theme.borders.radius.lg};
+  border-radius: 20px;
   padding: ${spacing[6]};
-  box-shadow: ${shadows.card};
-  transition: ${theme.transitions.default};
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid ${colors.neutral[200]};
 
   &:hover {
-    box-shadow: ${shadows.cardHover};
     transform: translateY(-2px);
   }
 
@@ -120,7 +115,7 @@ const ResponsiveHeading = styled.h1`
   letter-spacing: ${typography.mobile.heading[100].letterSpacing};
 
   /* Desktop */
-  ${theme.mediaQueries.md} {
+  @media (min-width: 768px) {
     font-size: ${typography.desktop.heading[100].fontSize};
     line-height: ${typography.desktop.heading[100].lineHeight};
     letter-spacing: ${typography.desktop.heading[100].letterSpacing};
@@ -136,11 +131,11 @@ const Container = styled.div`
   margin: 0 auto;
   padding: ${spacing[6]};
 
-  ${theme.mediaQueries.md} {
+  @media (min-width: 768px) {
     padding: ${spacing[8]};
   }
 
-  ${theme.mediaQueries.lg} {
+  @media (min-width: 1024px) {
     padding: ${spacing[12]};
   }
 `;
@@ -150,19 +145,19 @@ const Grid = styled.div`
   gap: ${spacing[6]};
   grid-template-columns: 1fr;
 
-  ${theme.mediaQueries.md} {
+  @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
     gap: ${spacing[8]};
   }
 
-  ${theme.mediaQueries.lg} {
+  @media (min-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
     gap: ${spacing[10]};
   }
 `;
 
 // ============================================================================
-// Example 5: Modal Overlay with Z-Index
+// Example 5: Modal Overlay
 // ============================================================================
 
 const ModalBackdrop = styled.div`
@@ -172,7 +167,7 @@ const ModalBackdrop = styled.div`
   right: 0;
   bottom: 0;
   background-color: ${colors.neutral.dark.alpha[75]};
-  z-index: ${theme.zIndex.modalBackdrop};
+  z-index: 1300;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,10 +175,9 @@ const ModalBackdrop = styled.div`
 
 const ModalContent = styled.div`
   background-color: ${colors.neutral[50]};
-  border-radius: ${theme.borders.radius.xl};
+  border-radius: 16px;
   padding: ${spacing[8]};
-  box-shadow: ${theme.shadows.semantic.modal};
-  z-index: ${theme.zIndex.modal};
+  z-index: 1400;
   max-width: 600px;
   width: 90%;
   max-height: 80vh;
@@ -199,10 +193,10 @@ const Input = styled.input`
   font-size: ${typography.desktop.body.regular[300].fontSize};
   color: ${colors.neutral[900]};
   background-color: ${colors.neutral[50]};
-  border: ${theme.borders.widths[2]} solid ${colors.neutral[200]};
-  border-radius: ${theme.borders.radius.semantic.input};
+  border: 2px solid ${colors.neutral[200]};
+  border-radius: 8px;
   padding: ${spacing[3]} ${spacing[4]};
-  transition: ${theme.transitions.default};
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
 
   &:focus {
@@ -240,9 +234,9 @@ const StyledBadge = styled.span<{ variant: 'primary' | 'success' | 'error' }>`
   align-items: center;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.medium[400].fontSize};
-  font-weight: ${typography.desktop.body.medium[400].fontWeight};
+  font-weight: ${typography.fontWeights.medium};
   padding: ${spacing[1]} ${spacing[3]};
-  border-radius: ${theme.borders.radius.semantic.badge};
+  border-radius: 9999px;
   
   ${(props) => {
     switch (props.variant) {
