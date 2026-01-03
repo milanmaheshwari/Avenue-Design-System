@@ -104,7 +104,12 @@ export const ColorsPage: React.FC = () => {
 
 const Button = styled.button\`
   background-color: \${colors.primary[600]};
-  color: \${colors.semantic.labelsPrimary};
+  color: \${colors.neutral[50]};
+\`;
+
+const ErrorMessage = styled.div\`
+  color: \${colors.semantic.error};
+  background: \${colors.movies.alpha[10]};
 \`;`}</DocsCodeBlock>
       </DocsSection>
 
@@ -246,14 +251,21 @@ colors.sports.alpha[75]`}</DocsCodeBlock>
       <DocsSection>
         <DocsSectionTitle>Semantic Colors</DocsSectionTitle>
         <DocsParagraph>
-          Semantic colors have specific meanings and use cases.
+          Semantic colors provide meaningful color values for common UI states and feedback.
         </DocsParagraph>
         <ColorGrid>
           <ColorCard>
-            <ColorSwatch $color={colors.semantic.labelsPrimary} />
+            <ColorSwatch $color={colors.semantic.success} />
             <ColorInfo>
-              <ColorName>Labels Primary</ColorName>
-              <ColorValue>{colors.semantic.labelsPrimary}</ColorValue>
+              <ColorName>Success</ColorName>
+              <ColorValue>{colors.semantic.success}</ColorValue>
+            </ColorInfo>
+          </ColorCard>
+          <ColorCard>
+            <ColorSwatch $color={colors.semantic.info} />
+            <ColorInfo>
+              <ColorName>Info</ColorName>
+              <ColorValue>{colors.semantic.info}</ColorValue>
             </ColorInfo>
           </ColorCard>
           <ColorCard>
@@ -263,7 +275,28 @@ colors.sports.alpha[75]`}</DocsCodeBlock>
               <ColorValue>{colors.semantic.error}</ColorValue>
             </ColorInfo>
           </ColorCard>
+          <ColorCard>
+            <ColorSwatch $color={colors.semantic.warning} />
+            <ColorInfo>
+              <ColorName>Warning</ColorName>
+              <ColorValue>{colors.semantic.warning}</ColorValue>
+            </ColorInfo>
+          </ColorCard>
         </ColorGrid>
+        <DocsCodeBlock>{`// Semantic colors for UI feedback
+colors.semantic.success  // #16a34a (wellness green)
+colors.semantic.info     // #2563eb (themeParks blue)
+colors.semantic.error    // #dc2626 (movies red)
+colors.semantic.warning  // #ca8a04 (comedy yellow)
+
+// Usage examples
+const SuccessButton = styled.button\`
+  background: \${colors.semantic.success};
+\`;
+
+const ErrorMessage = styled.div\`
+  color: \${colors.semantic.error};
+\`;`}</DocsCodeBlock>
       </DocsSection>
     </DocsLayout>
   );
