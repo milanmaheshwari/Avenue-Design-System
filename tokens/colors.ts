@@ -1,6 +1,7 @@
 /**
  * Color Design Tokens
- * Generated from Avenue Design System
+ * Imported from Figma Design System
+ * Source: https://www.figma.com/design/fbMbVTwjlkkh1A7NSQQHnS/Avenue-Ticket
  */
 
 export const colors = {
@@ -11,7 +12,6 @@ export const colors = {
     200: '#c7d2fe',
     300: '#a5b4fc',
     400: '#818cf8',
-    500: '#6366f1',
     600: '#4f46e5',
     700: '#4338ca',
     800: '#3730a3',
@@ -23,7 +23,7 @@ export const colors = {
       25: '#4f46e540',
       50: '#4f46e580',
       75: '#4f46e5bf',
-      90: '#4f46e5e6',
+      90: '#4f46e5e5',
     },
   },
 
@@ -34,8 +34,6 @@ export const colors = {
     200: '#e5e5e5',
     400: '#a3a3a3',
     600: '#525252',
-    700: '#404040',
-    800: '#262626',
     900: '#171717',
     950: '#0a0a0a',
     light: {
@@ -46,7 +44,7 @@ export const colors = {
         25: '#fafafa40',
         50: '#fafafa80',
         75: '#fafafabf',
-        90: '#fafafae6',
+        90: '#fafafae5',
       },
     },
     dark: {
@@ -57,7 +55,7 @@ export const colors = {
         25: '#0a0a0a40',
         50: '#0a0a0a80',
         75: '#0a0a0abf',
-        90: '#0a0a0ae6',
+        90: '#0a0a0ae5',
       },
     },
   },
@@ -71,9 +69,8 @@ export const colors = {
     400: '#facc15',
     500: '#eab308',
     600: '#ca8a04',
-    700: '#a16207',
-    800: '#854d0e',
-    900: '#713f12',
+    700: '#d97706',
+    800: '#b45309',
     950: '#78350f',
     alpha: {
       0: '#ca8a0400',
@@ -82,7 +79,7 @@ export const colors = {
       25: '#ca8a0440',
       50: '#ca8a0480',
       75: '#ca8a04bf',
-      90: '#ca8a04e6',
+      90: '#ca8a04e5',
     },
   },
 
@@ -96,7 +93,6 @@ export const colors = {
     600: '#9333ea',
     700: '#7e22ce',
     800: '#6b21a8',
-    900: '#581c87',
     950: '#3b0764',
     alpha: {
       0: '#9333ea00',
@@ -105,7 +101,7 @@ export const colors = {
       25: '#9333ea40',
       50: '#9333ea80',
       75: '#9333eabf',
-      90: '#9333eae6',
+      90: '#9333eae5',
     },
   },
 
@@ -119,7 +115,6 @@ export const colors = {
     600: '#ea580c',
     700: '#c2410c',
     800: '#9a3412',
-    900: '#7c2d12',
     950: '#431407',
     alpha: {
       0: '#ea580c00',
@@ -128,7 +123,7 @@ export const colors = {
       25: '#ea580c40',
       50: '#ea580c80',
       75: '#ea580cbf',
-      90: '#ea580ce6',
+      90: '#ea580ce5',
     },
   },
 
@@ -142,7 +137,6 @@ export const colors = {
     600: '#c026d3',
     700: '#a21caf',
     800: '#86198f',
-    900: '#701a75',
     950: '#4a044e',
     alpha: {
       0: '#c026d300',
@@ -151,7 +145,7 @@ export const colors = {
       25: '#c026d340',
       50: '#c026d380',
       75: '#c026d3bf',
-      90: '#c026d3e6',
+      90: '#c026d3e5',
     },
   },
 
@@ -174,7 +168,7 @@ export const colors = {
       25: '#dc262640',
       50: '#dc262680',
       75: '#dc2626bf',
-      90: '#dc2626e6',
+      90: '#dc2626e5',
     },
   },
 
@@ -188,7 +182,6 @@ export const colors = {
     600: '#16a34a',
     700: '#15803d',
     800: '#166534',
-    900: '#14532d',
     950: '#052e16',
     alpha: {
       0: '#16a34a00',
@@ -197,7 +190,7 @@ export const colors = {
       25: '#16a34a40',
       50: '#16a34a80',
       75: '#16a34abf',
-      90: '#16a34ae6',
+      90: '#16a34ae5',
     },
   },
 
@@ -211,7 +204,6 @@ export const colors = {
     600: '#2563eb',
     700: '#1d4ed8',
     800: '#1e40af',
-    900: '#1e3a8a',
     950: '#172554',
     alpha: {
       0: '#2563eb00',
@@ -220,22 +212,22 @@ export const colors = {
       25: '#2563eb40',
       50: '#2563eb80',
       75: '#2563ebbf',
-      90: '#2563ebe6',
+      90: '#2563ebe5',
     },
   },
 
   coffee: {
-    50: '#faf8f7',
-    100: '#f5f1ef',
-    200: '#e8dcd6',
-    300: '#d9c7bd',
-    400: '#c4a89a',
-    500: '#a18072',
-    600: '#8b6a5d',
-    700: '#73574d',
-    800: '#5f4941',
-    900: '#4f3d37',
-    950: '#2a1f1c',
+    50: '#fdf8f6',
+    100: '#f2e8e5',
+    200: '#eaddd7',
+    300: '#e0cec7',
+    400: '#d2bab0',
+    500: '#bfa094',
+    600: '#a18072',
+    700: '#85644f',
+    800: '#6f4e3e',
+    900: '#5c3d2e',
+    950: '#3e1f10',
     alpha: {
       0: '#a1807200',
       5: '#a180720d',
@@ -243,15 +235,21 @@ export const colors = {
       25: '#a1807240',
       50: '#a1807280',
       75: '#a18072bf',
-      90: '#a18072e6',
+      90: '#a18072e5',
     },
   },
 
-  // Semantic Colors
+  // Semantic Colors (Aliases to base colors)
   semantic: {
-    labelsPrimary: '#FFFFFF',
-    error: '#dc2626',
+    labelsPrimary: '#FFFFFF', // Alias to neutral/50 in light mode
+    error: '#dc2626', // Alias to movies/600
   },
+} as const;
+
+// Color aliases for semantic usage
+export const colorAliases = {
+  labelsPrimary: colors.neutral[50],
+  error: colors.movies[600],
 } as const;
 
 export type Colors = typeof colors;

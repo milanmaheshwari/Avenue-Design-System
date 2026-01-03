@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { colors } from '../../tokens';
 
 interface IconProps {
   /** Background gradient start color */
@@ -26,12 +27,12 @@ interface IconProps {
 }
 
 export const HomeIcon: React.FC<IconProps> = ({
-  bgStart = '#FAFAFA',
-  bgEnd = '#FAFAFA',
+  bgStart = colors.neutral[50],
+  bgEnd = colors.neutral[50],
   bgStartOpacity = 0.1,
   bgEndOpacity = 0.05,
-  borderStroke = '#FAFAFA',
-  iconStroke = '#FAFAFA',
+  borderStroke = colors.neutral[50],
+  iconStroke = colors.neutral[50],
   borderOpacity = 0.05,
   iconOpacity = 0.5,
   className
@@ -72,12 +73,12 @@ export const HomeIcon: React.FC<IconProps> = ({
 );
 
 export const EventsIcon: React.FC<IconProps> = ({
-  bgStart = '#FAFAFA',
-  bgEnd = '#FAFAFA',
+  bgStart = colors.neutral[50],
+  bgEnd = colors.neutral[50],
   bgStartOpacity = 0.1,
   bgEndOpacity = 0.05,
-  borderStroke = '#FAFAFA',
-  iconStroke = '#FAFAFA',
+  borderStroke = colors.neutral[50],
+  iconStroke = colors.neutral[50],
   borderOpacity = 0.05,
   iconOpacity = 0.5,
   className
@@ -118,12 +119,12 @@ export const EventsIcon: React.FC<IconProps> = ({
 );
 
 export const TicketsIcon: React.FC<IconProps> = ({
-  bgStart = '#FAFAFA',
-  bgEnd = '#FAFAFA',
+  bgStart = colors.neutral[50],
+  bgEnd = colors.neutral[50],
   bgStartOpacity = 0.1,
   bgEndOpacity = 0.05,
-  borderStroke = '#FAFAFA',
-  iconStroke = '#FAFAFA',
+  borderStroke = colors.neutral[50],
+  iconStroke = colors.neutral[50],
   borderOpacity = 0.05,
   iconOpacity = 0.5,
   className
@@ -164,12 +165,12 @@ export const TicketsIcon: React.FC<IconProps> = ({
 );
 
 export const ProfileIcon: React.FC<IconProps> = ({
-  bgStart = '#FAFAFA',
-  bgEnd = '#FAFAFA',
+  bgStart = colors.neutral[50],
+  bgEnd = colors.neutral[50],
   bgStartOpacity = 0.1,
   bgEndOpacity = 0.05,
-  borderStroke = '#FAFAFA',
-  iconStroke = '#FAFAFA',
+  borderStroke = colors.neutral[50],
+  iconStroke = colors.neutral[50],
   borderOpacity = 0.05,
   iconOpacity = 0.5,
   className
