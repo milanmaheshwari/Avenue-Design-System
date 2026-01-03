@@ -63,16 +63,20 @@ Each category has its own color palette for theming:
 - **themeParks**: Blue (`#2563eb`)
 - **coffee**: Brown (`#a18072`)
 
-### Semantic Colors (Aliases)
+### Semantic Colors
 
-Semantic colors create meaningful connections between design intent and base colors:
+Semantic colors provide meaningful color values for common UI states and feedback:
 
 ```typescript
-export const colorAliases = {
-  labelsPrimary: colors.neutral[50],  // White text
-  error: colors.movies[600],          // Error red
-} as const;
+semantic: {
+  success: '#16a34a',  // Success green (wellness/600)
+  info: '#2563eb',     // Info blue (themeParks/600)
+  error: '#dc2626',    // Error red (movies/600)
+  warning: '#ca8a04',  // Warning yellow (comedy/600)
+}
 ```
+
+These colors are designed to communicate system feedback and status to users.
 
 ## Usage in Components
 
@@ -112,10 +116,27 @@ const CategoryCard = styled.div<{ $theme: CategoryTheme }>`
 ### Semantic Usage
 
 ```typescript
-import { colorAliases } from '../tokens';
+import { colors } from '../tokens';
 
 const ErrorMessage = styled.p`
-  color: ${colorAliases.error};
+  color: ${colors.semantic.error};
+`;
+
+const SuccessButton = styled.button`
+  background: ${colors.semantic.success};
+  &:hover {
+    background: ${colors.wellness[700]};
+  }
+`;
+
+const InfoBadge = styled.span`
+  background: ${colors.semantic.info};
+  color: ${colors.neutral[50]};
+`;
+
+const WarningAlert = styled.div`
+  border-left: 4px solid ${colors.semantic.warning};
+  background: ${colors.comedy.alpha[10]};
 `;
 ```
 
@@ -128,13 +149,15 @@ The color tokens maintain a 1:1 mapping with Figma variables:
 | `primary/600` | `colors.primary[600]` | `#4f46e5` |
 | `neutral/50` | `colors.neutral[50]` | `#fafafa` |
 | `music/alpha/50` | `colors.music.alpha[50]` | `#c026d380` |
-| `Labels/Primary` | `colorAliases.labelsPrimary` | `#FFFFFF` |
-| `Error` | `colorAliases.error` | `#dc2626` |
+| `Error` | `colors.semantic.error` | `#dc2626` |
+| `wellness/600` | `colors.semantic.success` | `#16a34a` |
+| `theme-parks/600` | `colors.semantic.info` | `#2563eb` |
+| `comedy/600` | `colors.semantic.warning` | `#ca8a04` |
 
 ## Best Practices
 
 1. **Always use tokens**: Never hardcode color values in components
-2. **Use semantic aliases**: When the color has semantic meaning (error, success, etc.)
+2. **Use semantic colors**: Use `colors.semantic.*` for UI feedback (error, success, info, warning)
 3. **Category consistency**: Use category colors for category-specific components
 4. **Alpha for overlays**: Use alpha variants for transparent backgrounds and overlays
 5. **Maintain Figma sync**: Update tokens when Figma design system changes
@@ -148,7 +171,7 @@ To sync colors from Figma:
 3. Export variables or use the Figma API
 4. Update `tokens/colors.ts` with new values
 5. Ensure alpha values use correct opacity (e5 = 90%, bf = 75%, etc.)
-6. Update `colorAliases` if semantic mappings change
+6. Update `colors.semantic` if semantic color values change
 
 ## Notes
 
