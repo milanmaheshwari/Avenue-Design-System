@@ -86,14 +86,7 @@ The component uses the following design tokens:
   - Mobile: `heading[600]`, `body.medium[300]`, `button[200]`
 
 - **Spacing:**
-  - Various spacing tokens for padding and gaps
-
-- **Shadows:**
-  - `shadows['2xl']` - Card shadow
-
-- **Borders:**
-  - `theme.borders.radius.lg` - Button radius
-  - Custom radius for card (20px/16px)
+  - Various spacing tokens for padding and gaps (`spacing[1]` to `spacing[12]`)
 
 ---
 

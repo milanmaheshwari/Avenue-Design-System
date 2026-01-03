@@ -8,13 +8,10 @@ The Avenue Design System employs a comprehensive token structure organized into 
 ## 1. Color Token Structure
 
 ### 1.1 Primary Colors
-The primary color palette uses an indigo/purple scheme (`#4f46e5`) with a complete shade scale:
+The primary color palette uses an indigo/blue scheme (`#4f46e5`) with a complete shade scale:
 
-- **Base Shades**: `50, 100, 200, 300, 400, 500, 600, 700, 800, 950`
+- **Base Shades**: `50, 100, 200, 300, 400, 600, 700, 800, 950`
 - **Alpha Variants**: `0, 5, 10, 25, 50, 75, 90` (with transparency)
-- **Special Groups**: 
-  - `primary/New group` (appears to reference `#c026d3` - magenta/fuchsia)
-  - `primary/New group 2` (references `#9333ea` - purple)
 
 **Example Tokens:**
 - `primary/600`: `#4f46e5`
@@ -48,7 +45,7 @@ The system includes themed color palettes for various event/venue categories:
 5. **Movies** (`#dc2626` - Red)
 6. **Wellness** (`#16a34a` - Green)
 7. **Theme Parks** (`#2563eb` - Blue)
-8. **Coffee** (`#a18072` - Brown/Taupe)
+8. **Coffee** (`#a18072` - Brown)
 
 #### Category Color Structure
 Each category follows a consistent structure:
@@ -72,19 +69,21 @@ comedy/950: #78350f
 comedy/alpha/25: #ca8a0440
 ```
 
-### 1.4 Semantic Tokens
-- **Labels/Primary**: `#FFFFFF` (White)
-- **Error**: `#dc2626` (Red - same as movies/600)
+### 1.4 Semantic Colors
+- **Success**: `#16a34a` (Green - wellness/600)
+- **Info**: `#2563eb` (Blue - themeParks/600)
+- **Error**: `#dc2626` (Red - movies/600)
+- **Warning**: `#ca8a04` (Yellow - comedy/600)
 
-### 1.5 Color Aliases & Relationships
-The system demonstrates aliasing patterns:
+### 1.5 Semantic Color Usage
+Semantic colors are used for system feedback and UI states:
 
-- **Nightlife** colors alias to Purple (`#9333ea`)
-- **Music** colors alias to Magenta/Fuchsia (`#c026d3`)
-- **Primary/New group** appears to be an alias to Music colors
-- **Primary/New group 2** appears to be an alias to Nightlife colors
+- **Success**: Use for positive feedback, confirmations, completed states
+- **Info**: Use for informational messages, tooltips, help text
+- **Error**: Use for error messages, validation failures, destructive actions
+- **Warning**: Use for warnings, cautions, important notices
 
-This suggests a flexible system where category colors can reference the same underlying color values.
+These semantic colors reference category color values for consistency with the overall design system.
 
 ---
 
@@ -307,11 +306,11 @@ Clear size differentiation:
 ## 6. Token Statistics
 
 ### Color Tokens
-- **Primary colors**: 24 tokens (shades + alpha)
-- **Neutral colors**: 19 tokens (base + light/dark alpha)
-- **Category colors**: 8 categories × ~20 tokens each = ~160 tokens
-- **Semantic tokens**: 2 (Labels/Primary, Error)
-- **Total color tokens**: ~205 tokens
+- **Primary colors**: ~18 tokens (shades + alpha)
+- **Neutral colors**: 18 tokens (base + light/dark alpha)
+- **Category colors**: 8 categories × ~18 tokens each = ~144 tokens
+- **Semantic colors**: 4 (success, info, error, warning)
+- **Total color tokens**: ~184 tokens
 
 ### Typography Tokens
 - **Desktop**: 38 tokens (8 Headings + 12 Body + 4 Buttons + 2 Overlines)
@@ -319,14 +318,14 @@ Clear size differentiation:
 - **Total typography tokens**: 69 tokens
 
 ### Grand Total
-**~274 design tokens** across the system
+**~253 design tokens** across the system (colors + typography)
 
 ---
 
 ### Maintenance Notes
-- The "New group" naming suggests work-in-progress tokens that may need renaming
-- Consider consolidating duplicate color references through explicit aliasing
-- Document the relationship between category colors and primary variants
+- All color tokens are synced with Figma design system
+- See `tokens/COLOR_TOKENS_GUIDE.md` for detailed color documentation
+- Semantic colors provide consistent UI feedback across the design system
 
 ---
 

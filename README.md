@@ -42,16 +42,15 @@ import { theme } from '@avenue/design-tokens';
 
 const Button = styled.button`
   background-color: ${theme.colors.primary[600]};
-  color: ${theme.colors.semantic.labelsPrimary};
+  color: ${theme.colors.neutral[50]};
   padding: ${theme.spacing[4]} ${theme.spacing[6]};
-  border-radius: ${theme.borders.radius.md};
+  border-radius: 12px;
+  font-family: ${theme.typography.fontFamily.primary};
   font-size: ${theme.typography.desktop.button[300].fontSize};
-  font-weight: ${theme.typography.desktop.button[300].fontWeight};
-  transition: ${theme.transitions.default};
-  box-shadow: ${theme.shadows.sm};
-
+  font-weight: ${theme.typography.fontWeights.bold};
+  
   &:hover {
-    box-shadow: ${theme.shadows.md};
+    background-color: ${theme.colors.primary[700]};
   }
 `;
 ```
@@ -65,8 +64,10 @@ import { theme } from '@avenue/design-tokens';
 
 const buttonStyles = css`
   background-color: ${theme.colors.primary[600]};
+  color: ${theme.colors.neutral[50]};
   padding: ${theme.spacing[4]};
-  border-radius: ${theme.borders.radius.button};
+  border-radius: 12px;
+  font-weight: ${theme.typography.fontWeights.bold};
 `;
 
 function Button() {
@@ -86,9 +87,9 @@ module.exports = {
     extend: {
       colors: theme.colors,
       spacing: theme.spacing,
-      borderRadius: theme.borders.radius,
-      boxShadow: theme.shadows,
-      // ... add more tokens as needed
+      fontFamily: {
+        sans: [theme.typography.fontFamily.primary, 'sans-serif'],
+      },
     },
   },
 };

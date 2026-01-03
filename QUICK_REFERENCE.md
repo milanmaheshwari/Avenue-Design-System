@@ -7,7 +7,7 @@
 import { theme } from './tokens';
 
 // Or import specific tokens
-import { colors, typography, spacing, shadows } from './tokens';
+import { colors, typography, spacing } from './tokens';
 ```
 
 ## 🎨 Colors
@@ -32,8 +32,10 @@ colors.themeParks[600]           // #2563eb
 colors.coffee[600]               // #a18072
 
 // Semantic
-colors.semantic.labelsPrimary    // #FFFFFF
+colors.semantic.success          // #16a34a
+colors.semantic.info             // #2563eb
 colors.semantic.error            // #dc2626
+colors.semantic.warning          // #ca8a04
 ```
 
 ## 📝 Typography
@@ -82,119 +84,6 @@ spacing.semantic['2xl']          // 48px
 spacing.semantic['3xl']          // 64px
 ```
 
-## 🌑 Shadows
-
-```typescript
-shadows.xs                       // Minimal shadow
-shadows.sm                       // Small shadow
-shadows.md                       // Medium shadow
-shadows.lg                       // Large shadow
-shadows.xl                       // Extra large shadow
-shadows['2xl']                   // Huge shadow
-shadows.inner                    // Inner shadow
-
-// Semantic
-shadows.semantic.card            // Card shadow
-shadows.semantic.cardHover       // Card hover shadow
-shadows.semantic.dropdown        // Dropdown shadow
-shadows.semantic.modal           // Modal shadow
-```
-
-## 🔲 Borders
-
-```typescript
-// Widths
-theme.borders.widths[1]          // 1px
-theme.borders.widths[2]          // 2px
-theme.borders.widths[4]          // 4px
-
-// Radius
-theme.borders.radius.sm          // 4px
-theme.borders.radius.md          // 8px
-theme.borders.radius.lg          // 12px
-theme.borders.radius.xl          // 16px
-theme.borders.radius.full        // 9999px
-
-// Semantic
-theme.borders.radius.semantic.button      // Button radius
-theme.borders.radius.semantic.card        // Card radius
-theme.borders.radius.semantic.input       // Input radius
-theme.borders.radius.semantic.badge       // Badge radius (full)
-```
-
-## 📱 Breakpoints
-
-```typescript
-// Values
-breakpoints.xs                   // 375px
-breakpoints.sm                   // 640px
-breakpoints.md                   // 768px
-breakpoints.lg                   // 1024px
-breakpoints.xl                   // 1280px
-breakpoints['2xl']               // 1536px
-
-// Media queries
-mediaQueries.md                  // @media (min-width: 768px)
-mediaQueries.lg                  // @media (min-width: 1024px)
-```
-
-## 📚 Z-Index
-
-```typescript
-zIndex.hide                      // -1
-zIndex.base                      // 0
-zIndex.dropdown                  // 1000
-zIndex.sticky                    // 1100
-zIndex.fixed                     // 1200
-zIndex.modalBackdrop             // 1300
-zIndex.modal                     // 1400
-zIndex.popover                   // 1500
-zIndex.tooltip                   // 1600
-zIndex.toast                     // 1700
-```
-
-## ⚡ Transitions
-
-```typescript
-// Durations
-transitionDurations.instant      // 0ms
-transitionDurations.fast         // 150ms
-transitionDurations.normal       // 250ms
-transitionDurations.slow         // 350ms
-
-// Timing functions
-transitionTimingFunctions.smooth // cubic-bezier(0.4, 0, 0.2, 1)
-transitionTimingFunctions.bounce // cubic-bezier(0.68, -0.55, 0.265, 1.55)
-
-// Pre-configured
-transitions.default              // all 250ms smooth
-transitions.fast                 // all 150ms smooth
-transitions.color                // color 250ms smooth
-transitions.transform            // transform 250ms smooth
-```
-
-## 🛠️ Utility Functions
-
-```typescript
-import { getColor, getSpacing, hexToRgba } from './tokens/utils';
-
-// Get color by path
-getColor('primary', 600)                    // #4f46e5
-getColor('comedy', 'alpha', 25)             // #ca8a0440
-
-// Get spacing
-getSpacing(4)                               // 16px
-getSpacing('md')                            // 16px
-
-// Color manipulation
-hexToRgba('#4f46e5', 0.5)                   // rgba(79, 70, 229, 0.5)
-
-// Category colors
-getCategoryColor('music', 600)              // #c026d3
-
-// Button styles
-createButtonStyles('primary')               // Returns button style object
-```
 
 ## 💡 CSS Variables
 
@@ -205,10 +94,10 @@ createButtonStyles('primary')               // Returns button style object
 /* Use in CSS */
 .button {
   background-color: var(--color-primary-600);
+  color: var(--color-neutral-50);
   padding: var(--spacing-4);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  transition-duration: var(--duration-normal);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
 }
 ```
 
@@ -216,15 +105,20 @@ createButtonStyles('primary')               // Returns button style object
 
 ### Button
 ```typescript
+import { colors, spacing, typography } from './tokens';
+
 const Button = styled.button`
   background-color: ${colors.primary[600]};
-  color: ${colors.semantic.labelsPrimary};
+  color: ${colors.neutral[50]};
   padding: ${spacing[4]} ${spacing[6]};
-  border-radius: ${theme.borders.radius.md};
+  border-radius: 12px;
+  font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.button[300].fontSize};
-  font-weight: ${typography.desktop.button[300].fontWeight};
-  box-shadow: ${shadows.sm};
-  transition: ${transitions.default};
+  font-weight: ${typography.fontWeights.bold};
+  
+  &:hover {
+    background-color: ${colors.primary[700]};
+  }
 `;
 ```
 
@@ -233,33 +127,32 @@ const Button = styled.button`
 const Card = styled.div`
   background: ${colors.neutral[50]};
   padding: ${spacing[6]};
-  border-radius: ${theme.borders.radius.lg};
-  box-shadow: ${shadows.card};
+  border-radius: 20px;
 `;
 ```
 
-### Input
+### Error Message
 ```typescript
-const Input = styled.input`
-  padding: ${spacing[3]} ${spacing[4]};
-  border: ${theme.borders.widths[2]} solid ${colors.neutral[200]};
-  border-radius: ${theme.borders.radius.md};
-  font-size: ${typography.desktop.body.regular[300].fontSize};
-  
-  &:focus {
-    border-color: ${colors.primary[600]};
-    outline: none;
-  }
+const ErrorMessage = styled.div`
+  color: ${colors.semantic.error};
+  font-size: ${typography.desktop.body.regular[400].fontSize};
+  padding: ${spacing[2]} ${spacing[4]};
+  background: ${colors.movies.alpha[10]};
+  border-radius: 8px;
 `;
 ```
 
-### Responsive Typography
+### Success Button
 ```typescript
-const Heading = styled.h1`
-  font-size: ${typography.mobile.heading[100].fontSize};
+const SuccessButton = styled.button`
+  background-color: ${colors.semantic.success};
+  color: ${colors.neutral[50]};
+  padding: ${spacing[4]} ${spacing[6]};
+  font-weight: ${typography.fontWeights.bold};
+  border-radius: 12px;
   
-  ${mediaQueries.md} {
-    font-size: ${typography.desktop.heading[100].fontSize};
+  &:hover {
+    background-color: ${colors.wellness[700]};
   }
 `;
 ```
