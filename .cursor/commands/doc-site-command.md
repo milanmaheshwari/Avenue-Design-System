@@ -28,6 +28,18 @@ All documentation pages must follow these constraints.
 
 ---
 
+## Light & Dark Mode
+- The site must support both Light Mode and Dark Mode.
+- Provide a visible theme toggle that is accessible from all pages (e.g. in the top header).
+- The selected theme must persist across navigation within the site.
+- The selected theme must persist across sessions (e.g. local storage or equivalent).
+- Default theme behavior- respect the user’s system preference when available.
+- If system preference is unavailable, default to Dark Mode.
+- All site UI (backgrounds, text, borders, code blocks, navigation, and examples) must correctly adapt to the active theme.
+- Theme styling must be token-driven (no hard-coded colors), using design tokens for both light and dark palettes.
+
+---
+
 ## Layout Consistency
 - All pages must use consistent spacing, heading styles, and section hierarchy.
 - Page structure must remain consistent across the entire site.

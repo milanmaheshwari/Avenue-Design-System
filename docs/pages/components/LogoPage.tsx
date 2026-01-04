@@ -15,6 +15,13 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 
 const ComponentDemo = styled.div`
   background-color: ${colors.neutral[950]};
@@ -40,41 +47,52 @@ const DemoLabel = styled.div`
   min-width: 140px;
 `;
 
-const SpecTable = styled.table`
+const SpecTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const CodeCell = styled(TableCell)`
+const CodeCell = styled(TableCell)<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
-  color: ${colors.primary[600]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: color 200ms ease;
 `;
 
 export function LogoPage() {
+  const { theme } = useTheme();
+  
   return (
     <DocsLayout currentPath="/components/logo">
       <DocsPageHeader
@@ -124,27 +142,27 @@ export function LogoPage() {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Dimensions</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Size</TableHeader>
-              <TableHeader>Width</TableHeader>
-              <TableHeader>Height</TableHeader>
-              <TableHeader>Use Case</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Size</TableHeader>
+              <TableHeader $theme={theme}>Width</TableHeader>
+              <TableHeader $theme={theme}>Height</TableHeader>
+              <TableHeader $theme={theme}>Use Case</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>big</CodeCell>
-              <TableCell>120px</TableCell>
-              <TableCell>36px</TableCell>
-              <TableCell>Desktop headers, landing pages</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>big</CodeCell>
+              <TableCell $theme={theme}>120px</TableCell>
+              <TableCell $theme={theme}>36px</TableCell>
+              <TableCell $theme={theme}>Desktop headers, landing pages</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>small</CodeCell>
-              <TableCell>80px</TableCell>
-              <TableCell>24px</TableCell>
-              <TableCell>Mobile navigation, compact layouts</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>small</CodeCell>
+              <TableCell $theme={theme}>80px</TableCell>
+              <TableCell $theme={theme}>24px</TableCell>
+              <TableCell $theme={theme}>Mobile navigation, compact layouts</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -193,27 +211,27 @@ export function LogoPage() {
       {/* Props */}
       <DocsSection>
         <DocsSectionTitle>Props</DocsSectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Prop</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Default</TableHeader>
-              <TableHeader>Description</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Prop</TableHeader>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Default</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>size</CodeCell>
-              <CodeCell>'big' | 'small'</CodeCell>
-              <CodeCell>'big'</CodeCell>
-              <TableCell>Size variant of the logo</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>size</CodeCell>
+              <CodeCell $theme={theme}>'big' | 'small'</CodeCell>
+              <CodeCell $theme={theme}>'big'</CodeCell>
+              <TableCell $theme={theme}>Size variant of the logo</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>className</CodeCell>
-              <CodeCell>string</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Additional CSS class</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>className</CodeCell>
+              <CodeCell $theme={theme}>string</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Additional CSS class</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>

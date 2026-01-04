@@ -15,60 +15,77 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 
-const TypeSample = styled.div<{ $style: any }>`
+const TypeSample = styled.div<{ $style: any; $theme: 'light' | 'dark' }>`
   font-family: ${props => props.$style.fontFamily};
   font-size: ${props => props.$style.fontSize};
   font-weight: ${props => props.$style.fontWeight};
   line-height: ${props => props.$style.lineHeight};
   letter-spacing: ${props => props.$style.letterSpacing || '0'};
   text-transform: ${props => props.$style.textTransform || 'none'};
-  color: ${colors.neutral[900]};
+  color: ${props => props.$theme === 'dark' ? colors.neutral[50] : colors.neutral[900]};
   margin: ${spacing[3]} 0;
   padding: ${spacing[4]};
-  background-color: ${colors.neutral[100]};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : colors.neutral[100]};
   border-radius: 8px;
-  border-left: 4px solid ${colors.primary[600]};
+  border-left: 4px solid ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 `;
 
-const TokenLabel = styled.div`
+const TokenLabel = styled.div<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 12px;
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
   margin-bottom: ${spacing[1]};
+  transition: color 200ms ease;
 `;
 
-const TypeTable = styled.table`
+const TypeTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
+  transition: color 200ms ease;
 `;
 
 export const TypographyPage: React.FC = () => {
+  const { theme } = useTheme();
   const desktopHeadingSizes = [100, 200, 300, 400, 500, 600, 700, 800];
   const bodySizes = [100, 200, 300, 400];
   const buttonSizes = [100, 200, 300, 400];
@@ -109,29 +126,29 @@ const Heading = styled.h1\`
 
       <DocsSection>
         <DocsSectionTitle>Font Weights</DocsSectionTitle>
-        <TypeTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Value</TableHeader>
-              <TableHeader>Usage</TableHeader>
+        <TypeTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
+              <TableHeader $theme={theme}>Usage</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>fontWeights.regular</TableCell>
-              <TableCell>400</TableCell>
-              <TableCell>Body text, paragraphs</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>fontWeights.regular</TableCell>
+              <TableCell $theme={theme}>400</TableCell>
+              <TableCell $theme={theme}>Body text, paragraphs</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>fontWeights.medium</TableCell>
-              <TableCell>500</TableCell>
-              <TableCell>Emphasized text, labels</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>fontWeights.medium</TableCell>
+              <TableCell $theme={theme}>500</TableCell>
+              <TableCell $theme={theme}>Emphasized text, labels</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>fontWeights.bold</TableCell>
-              <TableCell>700</TableCell>
-              <TableCell>Headings, buttons, strong emphasis</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>fontWeights.bold</TableCell>
+              <TableCell $theme={theme}>700</TableCell>
+              <TableCell $theme={theme}>Headings, buttons, strong emphasis</TableCell>
             </TableRow>
           </tbody>
         </TypeTable>
@@ -146,8 +163,8 @@ const Heading = styled.h1\`
         </DocsParagraph>
         {desktopHeadingSizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.desktop.heading[{size}]</TokenLabel>
-            <TypeSample $style={typography.desktop.heading[size as keyof typeof typography.desktop.heading]}>
+            <TokenLabel $theme={theme}>typography.desktop.heading[{size}]</TokenLabel>
+            <TypeSample $style={typography.desktop.heading[size as keyof typeof typography.desktop.heading]} $theme={theme}>
               Heading {size} - {typography.desktop.heading[size as keyof typeof typography.desktop.heading].fontSize}
             </TypeSample>
           </div>
@@ -162,8 +179,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         </DocsParagraph>
         {bodySizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.desktop.body.regular[{size}]</TokenLabel>
-            <TypeSample $style={typography.desktop.body.regular[size as keyof typeof typography.desktop.body.regular]}>
+            <TokenLabel $theme={theme}>typography.desktop.body.regular[{size}]</TokenLabel>
+            <TypeSample $style={typography.desktop.body.regular[size as keyof typeof typography.desktop.body.regular]} $theme={theme}>
               Body Regular {size} - The quick brown fox jumps over the lazy dog
             </TypeSample>
           </div>
@@ -175,8 +192,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         </DocsParagraph>
         {bodySizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.desktop.body.medium[{size}]</TokenLabel>
-            <TypeSample $style={typography.desktop.body.medium[size as keyof typeof typography.desktop.body.medium]}>
+            <TokenLabel $theme={theme}>typography.desktop.body.medium[{size}]</TokenLabel>
+            <TypeSample $style={typography.desktop.body.medium[size as keyof typeof typography.desktop.body.medium]} $theme={theme}>
               Body Medium {size} - The quick brown fox jumps over the lazy dog
             </TypeSample>
           </div>
@@ -188,8 +205,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         </DocsParagraph>
         {bodySizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.desktop.body.bold[{size}]</TokenLabel>
-            <TypeSample $style={typography.desktop.body.bold[size as keyof typeof typography.desktop.body.bold]}>
+            <TokenLabel $theme={theme}>typography.desktop.body.bold[{size}]</TokenLabel>
+            <TypeSample $style={typography.desktop.body.bold[size as keyof typeof typography.desktop.body.bold]} $theme={theme}>
               Body Bold {size} - The quick brown fox jumps over the lazy dog
             </TypeSample>
           </div>
@@ -201,8 +218,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         </DocsParagraph>
         {buttonSizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.desktop.button[{size}]</TokenLabel>
-            <TypeSample $style={typography.desktop.button[size as keyof typeof typography.desktop.button]}>
+            <TokenLabel $theme={theme}>typography.desktop.button[{size}]</TokenLabel>
+            <TypeSample $style={typography.desktop.button[size as keyof typeof typography.desktop.button]} $theme={theme}>
               BUTTON TEXT {size}
             </TypeSample>
           </div>
@@ -214,8 +231,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         </DocsParagraph>
         {overlineSizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.desktop.overline[{size}]</TokenLabel>
-            <TypeSample $style={typography.desktop.overline[size as keyof typeof typography.desktop.overline]}>
+            <TokenLabel $theme={theme}>typography.desktop.overline[{size}]</TokenLabel>
+            <TypeSample $style={typography.desktop.overline[size as keyof typeof typography.desktop.overline]} $theme={theme}>
               Overline Text {size}
             </TypeSample>
           </div>
@@ -234,8 +251,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         </DocsParagraph>
         {mobileHeadingSizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.mobile.heading[{size}]</TokenLabel>
-            <TypeSample $style={typography.mobile.heading[size as keyof typeof typography.mobile.heading]}>
+            <TokenLabel $theme={theme}>typography.mobile.heading[{size}]</TokenLabel>
+            <TypeSample $style={typography.mobile.heading[size as keyof typeof typography.mobile.heading]} $theme={theme}>
               Mobile Heading {size} - {typography.mobile.heading[size as keyof typeof typography.mobile.heading].fontSize}
             </TypeSample>
           </div>
@@ -244,8 +261,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         <DocsSubsectionTitle>Mobile Body - Regular</DocsSubsectionTitle>
         {bodySizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.mobile.body.regular[{size}]</TokenLabel>
-            <TypeSample $style={typography.mobile.body.regular[size as keyof typeof typography.mobile.body.regular]}>
+            <TokenLabel $theme={theme}>typography.mobile.body.regular[{size}]</TokenLabel>
+            <TypeSample $style={typography.mobile.body.regular[size as keyof typeof typography.mobile.body.regular]} $theme={theme}>
               Mobile Body Regular {size} - The quick brown fox jumps over the lazy dog
             </TypeSample>
           </div>
@@ -254,8 +271,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         <DocsSubsectionTitle>Mobile Body - Medium</DocsSubsectionTitle>
         {bodySizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.mobile.body.medium[{size}]</TokenLabel>
-            <TypeSample $style={typography.mobile.body.medium[size as keyof typeof typography.mobile.body.medium]}>
+            <TokenLabel $theme={theme}>typography.mobile.body.medium[{size}]</TokenLabel>
+            <TypeSample $style={typography.mobile.body.medium[size as keyof typeof typography.mobile.body.medium]} $theme={theme}>
               Mobile Body Medium {size} - The quick brown fox jumps over the lazy dog
             </TypeSample>
           </div>
@@ -264,8 +281,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         <DocsSubsectionTitle>Mobile Body - Bold</DocsSubsectionTitle>
         {bodySizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.mobile.body.bold[{size}]</TokenLabel>
-            <TypeSample $style={typography.mobile.body.bold[size as keyof typeof typography.mobile.body.bold]}>
+            <TokenLabel $theme={theme}>typography.mobile.body.bold[{size}]</TokenLabel>
+            <TypeSample $style={typography.mobile.body.bold[size as keyof typeof typography.mobile.body.bold]} $theme={theme}>
               Mobile Body Bold {size} - The quick brown fox jumps over the lazy dog
             </TypeSample>
           </div>
@@ -274,8 +291,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         <DocsSubsectionTitle>Mobile Buttons</DocsSubsectionTitle>
         {buttonSizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.mobile.button[{size}]</TokenLabel>
-            <TypeSample $style={typography.mobile.button[size as keyof typeof typography.mobile.button]}>
+            <TokenLabel $theme={theme}>typography.mobile.button[{size}]</TokenLabel>
+            <TypeSample $style={typography.mobile.button[size as keyof typeof typography.mobile.button]} $theme={theme}>
               MOBILE BUTTON {size}
             </TypeSample>
           </div>
@@ -284,8 +301,8 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
         <DocsSubsectionTitle>Mobile Overlines</DocsSubsectionTitle>
         {overlineSizes.map((size) => (
           <div key={size}>
-            <TokenLabel>typography.mobile.overline[{size}]</TokenLabel>
-            <TypeSample $style={typography.mobile.overline[size as keyof typeof typography.mobile.overline]}>
+            <TokenLabel $theme={theme}>typography.mobile.overline[{size}]</TokenLabel>
+            <TypeSample $style={typography.mobile.overline[size as keyof typeof typography.mobile.overline]} $theme={theme}>
               Mobile Overline {size}
             </TypeSample>
           </div>
@@ -294,39 +311,39 @@ typography.desktop.heading[800]  // 16px, -2% letter-spacing`}</DocsCodeBlock>
 
       <DocsSection>
         <DocsSectionTitle>Typography Scale Summary</DocsSectionTitle>
-        <TypeTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Category</TableHeader>
-              <TableHeader>Desktop Sizes</TableHeader>
-              <TableHeader>Mobile Sizes</TableHeader>
-              <TableHeader>Weights</TableHeader>
+        <TypeTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Category</TableHeader>
+              <TableHeader $theme={theme}>Desktop Sizes</TableHeader>
+              <TableHeader $theme={theme}>Mobile Sizes</TableHeader>
+              <TableHeader $theme={theme}>Weights</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Headings</TableCell>
-              <TableCell>8 sizes (100-800)</TableCell>
-              <TableCell>7 sizes (100-700)</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Headings</TableCell>
+              <TableCell $theme={theme}>8 sizes (100-800)</TableCell>
+              <TableCell $theme={theme}>7 sizes (100-700)</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Body</TableCell>
-              <TableCell>4 sizes (100-400)</TableCell>
-              <TableCell>4 sizes (100-400)</TableCell>
-              <TableCell>Regular, Medium, Bold</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Body</TableCell>
+              <TableCell $theme={theme}>4 sizes (100-400)</TableCell>
+              <TableCell $theme={theme}>4 sizes (100-400)</TableCell>
+              <TableCell $theme={theme}>Regular, Medium, Bold</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Buttons</TableCell>
-              <TableCell>4 sizes (100-400)</TableCell>
-              <TableCell>4 sizes (100-400)</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Buttons</TableCell>
+              <TableCell $theme={theme}>4 sizes (100-400)</TableCell>
+              <TableCell $theme={theme}>4 sizes (100-400)</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Overlines</TableCell>
-              <TableCell>2 sizes (200, 300)</TableCell>
-              <TableCell>2 sizes (200, 300)</TableCell>
-              <TableCell>Medium (500)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Overlines</TableCell>
+              <TableCell $theme={theme}>2 sizes (200, 300)</TableCell>
+              <TableCell $theme={theme}>2 sizes (200, 300)</TableCell>
+              <TableCell $theme={theme}>Medium (500)</TableCell>
             </TableRow>
           </tbody>
         </TypeTable>

@@ -16,6 +16,13 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 import demoImage from '../../../assets/fac1b8921d7451f21cc3076e1e09e76dedf851f1.png';
 
 // Demo image
@@ -52,38 +59,47 @@ const VariantLabel = styled.div`
   text-align: center;
 `;
 
-const SpecTable = styled.table`
+const SpecTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const CodeCell = styled(TableCell)`
+const CodeCell = styled(TableCell)<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
-  color: ${colors.primary[600]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: color 200ms ease;
 `;
 
 const GuidelineSection = styled.div`
@@ -121,6 +137,7 @@ const GuidelineText = styled.p`
 `;
 
 export const EventCardPage: React.FC = () => {
+  const { theme } = useTheme();
   return (
     <DocsLayout currentPath="/components/event-card">
       <DocsPageHeader
@@ -269,243 +286,243 @@ export const EventCardPage: React.FC = () => {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Dimensions</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Big</TableHeader>
-              <TableHeader>Medium</TableHeader>
-              <TableHeader>Small</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Big</TableHeader>
+              <TableHeader $theme={theme}>Medium</TableHeader>
+              <TableHeader $theme={theme}>Small</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Card Width</TableCell>
-              <TableCell>360px</TableCell>
-              <TableCell>292px</TableCell>
-              <TableCell>156px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Card Width</TableCell>
+              <TableCell $theme={theme}>360px</TableCell>
+              <TableCell $theme={theme}>292px</TableCell>
+              <TableCell $theme={theme}>156px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image Height</TableCell>
-              <TableCell>450px</TableCell>
-              <TableCell>365px</TableCell>
-              <TableCell>195px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Height</TableCell>
+              <TableCell $theme={theme}>450px</TableCell>
+              <TableCell $theme={theme}>365px</TableCell>
+              <TableCell $theme={theme}>195px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Border Radius</TableCell>
-              <TableCell>24px</TableCell>
-              <TableCell>24px</TableCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Border Radius</TableCell>
+              <TableCell $theme={theme}>24px</TableCell>
+              <TableCell $theme={theme}>24px</TableCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Favorite Button Size</TableCell>
-              <TableCell>40×40px</TableCell>
-              <TableCell>40×40px</TableCell>
-              <TableCell>24×24px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Favorite Button Size</TableCell>
+              <TableCell $theme={theme}>40×40px</TableCell>
+              <TableCell $theme={theme}>40×40px</TableCell>
+              <TableCell $theme={theme}>24×24px</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Spacing</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Big</TableHeader>
-              <TableHeader>Medium</TableHeader>
-              <TableHeader>Small</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Big</TableHeader>
+              <TableHeader $theme={theme}>Medium</TableHeader>
+              <TableHeader $theme={theme}>Small</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Content Padding (Horizontal)</TableCell>
-              <CodeCell>spacing[5/4/2]</CodeCell>
-              <TableCell>20px</TableCell>
-              <TableCell>16px</TableCell>
-              <TableCell>8px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Content Padding (Horizontal)</TableCell>
+              <CodeCell $theme={theme}>spacing[5/4/2]</CodeCell>
+              <TableCell $theme={theme}>20px</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>8px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Content Padding (Top)</TableCell>
-              <CodeCell>spacing[5/4/2]</CodeCell>
-              <TableCell>20px</TableCell>
-              <TableCell>16px</TableCell>
-              <TableCell>8px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Content Padding (Top)</TableCell>
+              <CodeCell $theme={theme}>spacing[5/4/2]</CodeCell>
+              <TableCell $theme={theme}>20px</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>8px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Content Padding (Bottom)</TableCell>
-              <CodeCell>spacing[6/5/3]</CodeCell>
-              <TableCell>24px</TableCell>
-              <TableCell>20px</TableCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Content Padding (Bottom)</TableCell>
+              <CodeCell $theme={theme}>spacing[6/5/3]</CodeCell>
+              <TableCell $theme={theme}>24px</TableCell>
+              <TableCell $theme={theme}>20px</TableCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Title-Info Gap</TableCell>
-              <CodeCell>spacing[2/1]</CodeCell>
-              <TableCell>8px</TableCell>
-              <TableCell>4px</TableCell>
-              <TableCell>2px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title-Info Gap</TableCell>
+              <CodeCell $theme={theme}>spacing[2/1]</CodeCell>
+              <TableCell $theme={theme}>8px</TableCell>
+              <TableCell $theme={theme}>4px</TableCell>
+              <TableCell $theme={theme}>2px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Favorite Button Position</TableCell>
-              <CodeCell>spacing[4/4/2]</CodeCell>
-              <TableCell>16px</TableCell>
-              <TableCell>16px</TableCell>
-              <TableCell>8px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Favorite Button Position</TableCell>
+              <CodeCell $theme={theme}>spacing[4/4/2]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>8px</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Typography</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Size</TableHeader>
-              <TableHeader>Weight</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Size</TableHeader>
+              <TableHeader $theme={theme}>Weight</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Title (Big)</TableCell>
-              <CodeCell>typography.desktop.heading[700]</CodeCell>
-              <TableCell>20px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title (Big)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.heading[700]</CodeCell>
+              <TableCell $theme={theme}>20px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Title (Medium)</TableCell>
-              <CodeCell>typography.desktop.heading[800]</CodeCell>
-              <TableCell>16px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title (Medium)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.heading[800]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Title (Small)</TableCell>
-              <CodeCell>typography.mobile.heading[700]</CodeCell>
-              <TableCell>13px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title (Small)</TableCell>
+              <CodeCell $theme={theme}>typography.mobile.heading[700]</CodeCell>
+              <TableCell $theme={theme}>13px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Info (Big)</TableCell>
-              <CodeCell>typography.desktop.body.regular[300]</CodeCell>
-              <TableCell>16px</TableCell>
-              <TableCell>Regular (400)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Info (Big)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.body.regular[300]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>Regular (400)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Info (Medium)</TableCell>
-              <CodeCell>typography.desktop.body.regular[400]</CodeCell>
-              <TableCell>14px</TableCell>
-              <TableCell>Regular (400)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Info (Medium)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.body.regular[400]</CodeCell>
+              <TableCell $theme={theme}>14px</TableCell>
+              <TableCell $theme={theme}>Regular (400)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Info (Small)</TableCell>
-              <CodeCell>typography.mobile.body.regular[400]</CodeCell>
-              <TableCell>12px</TableCell>
-              <TableCell>Regular (400)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Info (Small)</TableCell>
+              <CodeCell $theme={theme}>typography.mobile.body.regular[400]</CodeCell>
+              <TableCell $theme={theme}>12px</TableCell>
+              <TableCell $theme={theme}>Regular (400)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Trending Number (Big)</TableCell>
-              <TableCell>120px</TableCell>
-              <TableCell>120px</TableCell>
-              <TableCell>Black (900)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Trending Number (Big)</TableCell>
+              <TableCell $theme={theme}>120px</TableCell>
+              <TableCell $theme={theme}>120px</TableCell>
+              <TableCell $theme={theme}>Black (900)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Trending Number (Medium)</TableCell>
-              <TableCell>95px</TableCell>
-              <TableCell>95px</TableCell>
-              <TableCell>Black (900)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Trending Number (Medium)</TableCell>
+              <TableCell $theme={theme}>95px</TableCell>
+              <TableCell $theme={theme}>95px</TableCell>
+              <TableCell $theme={theme}>Black (900)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Trending Number (Small)</TableCell>
-              <TableCell>60px</TableCell>
-              <TableCell>60px</TableCell>
-              <TableCell>Black (900)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Trending Number (Small)</TableCell>
+              <TableCell $theme={theme}>60px</TableCell>
+              <TableCell $theme={theme}>60px</TableCell>
+              <TableCell $theme={theme}>Black (900)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Colors</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Usage</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Usage</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Background Base</TableCell>
-              <CodeCell>colors.neutral[950]</CodeCell>
-              <TableCell>Dark background (#0a0a0a)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Background Base</TableCell>
+              <CodeCell $theme={theme}>colors.neutral[950]</CodeCell>
+              <TableCell $theme={theme}>Dark background (#0a0a0a)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Background Gradient</TableCell>
-              <CodeCell>colors[theme].alpha[5/10/5]</CodeCell>
-              <TableCell>113.68° gradient with theme colors</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Background Gradient</TableCell>
+              <CodeCell $theme={theme}>colors[theme].alpha[5/10/5]</CodeCell>
+              <TableCell $theme={theme}>113.68° gradient with theme colors</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image Overlay</TableCell>
-              <CodeCell>colors[theme].alpha[5]</CodeCell>
-              <TableCell>5% theme-colored tint</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Overlay</TableCell>
+              <CodeCell $theme={theme}>colors[theme].alpha[5]</CodeCell>
+              <TableCell $theme={theme}>5% theme-colored tint</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Title Text</TableCell>
-              <CodeCell>colors[theme][100]</CodeCell>
-              <TableCell>Light theme tint</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title Text</TableCell>
+              <CodeCell $theme={theme}>colors[theme][100]</CodeCell>
+              <TableCell $theme={theme}>Light theme tint</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Info Text</TableCell>
-              <CodeCell>colors[theme][100]</CodeCell>
-              <TableCell>Same as title</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Info Text</TableCell>
+              <CodeCell $theme={theme}>colors[theme][100]</CodeCell>
+              <TableCell $theme={theme}>Same as title</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Border</TableCell>
-              <CodeCell>colors.neutral.light.alpha[5]</CodeCell>
-              <TableCell>Inset shadow border</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Border</TableCell>
+              <CodeCell $theme={theme}>colors.neutral.light.alpha[5]</CodeCell>
+              <TableCell $theme={theme}>Inset shadow border</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Favorite Icon</TableCell>
-              <CodeCell>colors.neutral.light.alpha[90]</CodeCell>
-              <TableCell>White with 90% opacity</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Favorite Icon</TableCell>
+              <CodeCell $theme={theme}>colors.neutral.light.alpha[90]</CodeCell>
+              <TableCell $theme={theme}>White with 90% opacity</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Trending Number</TableCell>
-              <CodeCell>colors[theme][600] → [950]</CodeCell>
-              <TableCell>Gradient from vibrant to dark</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Trending Number</TableCell>
+              <CodeCell $theme={theme}>colors[theme][600] → [950]</CodeCell>
+              <TableCell $theme={theme}>Gradient from vibrant to dark</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Effects</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Effect</TableHeader>
-              <TableHeader>Value</TableHeader>
-              <TableHeader>Purpose</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Effect</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
+              <TableHeader $theme={theme}>Purpose</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Card Border</TableCell>
-              <TableCell>inset 0 0 0 2px/1px rgba(250,250,250,0.05)</TableCell>
-              <TableCell>Subtle edge definition</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Card Border</TableCell>
+              <TableCell $theme={theme}>inset 0 0 0 2px/1px rgba(250,250,250,0.05)</TableCell>
+              <TableCell $theme={theme}>Subtle edge definition</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Blur Circle (Top)</TableCell>
-              <TableCell>radial-gradient(rgba(250,250,250,0.1) 0%, transparent 100%)</TableCell>
-              <TableCell>Decorative lighting effect</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Blur Circle (Top)</TableCell>
+              <TableCell $theme={theme}>radial-gradient(rgba(250,250,250,0.1) 0%, transparent 100%)</TableCell>
+              <TableCell $theme={theme}>Decorative lighting effect</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Blur Circle (Bottom, Trending)</TableCell>
-              <TableCell>radial-gradient(rgba(250,250,250,0.1) 0%, transparent 100%)</TableCell>
-              <TableCell>Backdrop for trending number</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Blur Circle (Bottom, Trending)</TableCell>
+              <TableCell $theme={theme}>radial-gradient(rgba(250,250,250,0.1) 0%, transparent 100%)</TableCell>
+              <TableCell $theme={theme}>Backdrop for trending number</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Hover Transform</TableCell>
-              <TableCell>translateY(-4px)</TableCell>
-              <TableCell>Interactive lift effect</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Hover Transform</TableCell>
+              <TableCell $theme={theme}>translateY(-4px)</TableCell>
+              <TableCell $theme={theme}>Interactive lift effect</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -520,34 +537,34 @@ export const EventCardPage: React.FC = () => {
           When an onClick handler is provided, the card becomes interactive with hover and active states.
         </DocsParagraph>
         
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>State</TableHeader>
-              <TableHeader>Property</TableHeader>
-              <TableHeader>Value</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>State</TableHeader>
+              <TableHeader $theme={theme}>Property</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Default</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(0)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Default</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(0)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Hover (with onClick)</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(-4px)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Hover (with onClick)</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(-4px)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Active (with onClick)</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(-2px)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Active (with onClick)</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(-2px)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>All States</TableCell>
-              <TableCell>Transition</TableCell>
-              <TableCell>250ms cubic-bezier(0.4, 0, 0.2, 1)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>All States</TableCell>
+              <TableCell $theme={theme}>Transition</TableCell>
+              <TableCell $theme={theme}>250ms cubic-bezier(0.4, 0, 0.2, 1)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -669,29 +686,29 @@ export const EventCardPage: React.FC = () => {
         </DocsParagraph>
 
         <DocsSubsectionTitle>Color Contrast</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Background</TableHeader>
-              <TableHeader>WCAG Level</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Background</TableHeader>
+              <TableHeader $theme={theme}>WCAG Level</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Title (theme[100])</TableCell>
-              <TableCell>Dark background with theme tint</TableCell>
-              <TableCell>AAA</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title (theme[100])</TableCell>
+              <TableCell $theme={theme}>Dark background with theme tint</TableCell>
+              <TableCell $theme={theme}>AAA</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Info (theme[100])</TableCell>
-              <TableCell>Dark background with theme tint</TableCell>
-              <TableCell>AAA</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Info (theme[100])</TableCell>
+              <TableCell $theme={theme}>Dark background with theme tint</TableCell>
+              <TableCell $theme={theme}>AAA</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Favorite Icon</TableCell>
-              <TableCell>Event image (varies)</TableCell>
-              <TableCell>AA (high opacity white)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Favorite Icon</TableCell>
+              <TableCell $theme={theme}>Event image (varies)</TableCell>
+              <TableCell $theme={theme}>AA (high opacity white)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -815,75 +832,75 @@ function EventGrid({ events }: { events: Event[] }) {
 }`}</DocsCodeBlock>
 
         <DocsSubsectionTitle>Props API</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Prop</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Default</TableHeader>
-              <TableHeader>Description</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Prop</TableHeader>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Default</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>size</CodeCell>
-              <TableCell>'big' | 'medium' | 'small'</TableCell>
-              <TableCell>'big'</TableCell>
-              <TableCell>Size variant of the card</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>size</CodeCell>
+              <TableCell $theme={theme}>'big' | 'medium' | 'small'</TableCell>
+              <TableCell $theme={theme}>'big'</TableCell>
+              <TableCell $theme={theme}>Size variant of the card</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>type</CodeCell>
-              <TableCell>'default' | 'trending'</TableCell>
-              <TableCell>'default'</TableCell>
-              <TableCell>Card type with optional trending indicator</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>type</CodeCell>
+              <TableCell $theme={theme}>'default' | 'trending'</TableCell>
+              <TableCell $theme={theme}>'default'</TableCell>
+              <TableCell $theme={theme}>Card type with optional trending indicator</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>title</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Event title</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>title</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Event title</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>info</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Location and date information</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>info</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Location and date information</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>imageUrl</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Event image URL (portrait recommended)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>imageUrl</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Event image URL (portrait recommended)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>theme</CodeCell>
-              <TableCell>EventTheme</TableCell>
-              <TableCell>'primary'</TableCell>
-              <TableCell>Theme for color styling</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>theme</CodeCell>
+              <TableCell $theme={theme}>EventTheme</TableCell>
+              <TableCell $theme={theme}>'primary'</TableCell>
+              <TableCell $theme={theme}>Theme for color styling</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>trendingRank</CodeCell>
-              <TableCell>number</TableCell>
-              <TableCell>undefined</TableCell>
-              <TableCell>Rank number (only shown when type='trending')</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>trendingRank</CodeCell>
+              <TableCell $theme={theme}>number</TableCell>
+              <TableCell $theme={theme}>undefined</TableCell>
+              <TableCell $theme={theme}>Rank number (only shown when type='trending')</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>isFavorite</CodeCell>
-              <TableCell>boolean</TableCell>
-              <TableCell>false</TableCell>
-              <TableCell>Is favorited (controlled mode)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>isFavorite</CodeCell>
+              <TableCell $theme={theme}>boolean</TableCell>
+              <TableCell $theme={theme}>false</TableCell>
+              <TableCell $theme={theme}>Is favorited (controlled mode)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>onFavoriteToggle</CodeCell>
-              <TableCell>{'() => void'}</TableCell>
-              <TableCell>undefined</TableCell>
-              <TableCell>Favorite toggle handler</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>onFavoriteToggle</CodeCell>
+              <TableCell $theme={theme}>{'() => void'}</TableCell>
+              <TableCell $theme={theme}>undefined</TableCell>
+              <TableCell $theme={theme}>Favorite toggle handler</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>onClick</CodeCell>
-              <TableCell>{'() => void'}</TableCell>
-              <TableCell>undefined</TableCell>
-              <TableCell>Optional click handler</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>onClick</CodeCell>
+              <TableCell $theme={theme}>{'() => void'}</TableCell>
+              <TableCell $theme={theme}>undefined</TableCell>
+              <TableCell $theme={theme}>Optional click handler</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>

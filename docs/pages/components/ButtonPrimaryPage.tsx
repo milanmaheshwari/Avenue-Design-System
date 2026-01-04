@@ -16,6 +16,13 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 
 const ComponentDemo = styled.div`
   background-color: ${colors.neutral[950]};
@@ -62,38 +69,47 @@ const VariantPreview = styled.div`
   min-height: 80px;
 `;
 
-const SpecTable = styled.table`
+const SpecTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const CodeCell = styled(TableCell)`
+const CodeCell = styled(TableCell)<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
-  color: ${colors.primary[600]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: color 200ms ease;
 `;
 
 const ThemeGrid = styled.div`
@@ -113,6 +129,7 @@ const ThemeItem = styled.div`
 `;
 
 export const ButtonPrimaryPage = () => {
+  const { theme } = useTheme();
   const [clickCount, setClickCount] = useState(0);
   
   const themes: Array<'wellness' | 'music' | 'nightlife' | 'coffee' | 'sports' | 'movies' | 'comedy' | 'themeParks'> = [
@@ -120,7 +137,7 @@ export const ButtonPrimaryPage = () => {
   ];
 
   return (
-    <DocsLayout>
+    <DocsLayout currentPath="/components/button-primary">
       <DocsPageHeader title="Button Primary" />
       
       {/* Overview */}
@@ -202,30 +219,30 @@ export const ButtonPrimaryPage = () => {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Dimensions</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Size</TableHeader>
-              <TableHeader>Width</TableHeader>
-              <TableHeader>Padding</TableHeader>
-              <TableHeader>Border Radius</TableHeader>
-              <TableHeader>Font Size</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Size</TableHeader>
+              <TableHeader $theme={theme}>Width</TableHeader>
+              <TableHeader $theme={theme}>Padding</TableHeader>
+              <TableHeader $theme={theme}>Border Radius</TableHeader>
+              <TableHeader $theme={theme}>Font Size</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>big</CodeCell>
-              <TableCell>160px</TableCell>
-              <TableCell>24px</TableCell>
-              <TableCell>16px</TableCell>
-              <TableCell>20px</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>big</CodeCell>
+              <TableCell $theme={theme}>160px</TableCell>
+              <TableCell $theme={theme}>24px</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>20px</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>small</CodeCell>
-              <TableCell>152px</TableCell>
-              <TableCell>16px</TableCell>
-              <TableCell>12px</TableCell>
-              <TableCell>16px</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>small</CodeCell>
+              <TableCell $theme={theme}>152px</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>12px</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -310,104 +327,104 @@ export const ButtonPrimaryPage = () => {
       {/* Props API */}
       <DocsSection>
         <DocsSectionTitle>Props</DocsSectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Prop</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Default</TableHeader>
-              <TableHeader>Description</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Prop</TableHeader>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Default</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>children</CodeCell>
-              <CodeCell>ReactNode</CodeCell>
-              <CodeCell>'Button'</CodeCell>
-              <TableCell>Button text content</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>children</CodeCell>
+              <CodeCell $theme={theme}>ReactNode</CodeCell>
+              <CodeCell $theme={theme}>'Button'</CodeCell>
+              <TableCell $theme={theme}>Button text content</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>size</CodeCell>
-              <CodeCell>'big' | 'small'</CodeCell>
-              <CodeCell>'big'</CodeCell>
-              <TableCell>Size variant of the button</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>size</CodeCell>
+              <CodeCell $theme={theme}>'big' | 'small'</CodeCell>
+              <CodeCell $theme={theme}>'big'</CodeCell>
+              <TableCell $theme={theme}>Size variant of the button</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>theme</CodeCell>
-              <CodeCell>ButtonTheme</CodeCell>
-              <CodeCell>'wellness'</CodeCell>
-              <TableCell>Theme color variant (8 options)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>theme</CodeCell>
+              <CodeCell $theme={theme}>ButtonTheme</CodeCell>
+              <CodeCell $theme={theme}>'wellness'</CodeCell>
+              <TableCell $theme={theme}>Theme color variant (8 options)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>onClick</CodeCell>
-              <CodeCell>{'() => void'}</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Click handler function</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>onClick</CodeCell>
+              <CodeCell $theme={theme}>{'() => void'}</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Click handler function</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>disabled</CodeCell>
-              <CodeCell>boolean</CodeCell>
-              <CodeCell>false</CodeCell>
-              <TableCell>Disabled state</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>disabled</CodeCell>
+              <CodeCell $theme={theme}>boolean</CodeCell>
+              <CodeCell $theme={theme}>false</CodeCell>
+              <TableCell $theme={theme}>Disabled state</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>className</CodeCell>
-              <CodeCell>string</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Additional CSS class</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>className</CodeCell>
+              <CodeCell $theme={theme}>string</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Additional CSS class</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Theme Options</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Theme</TableHeader>
-              <TableHeader>Use Case</TableHeader>
-              <TableHeader>Color</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Theme</TableHeader>
+              <TableHeader $theme={theme}>Use Case</TableHeader>
+              <TableHeader $theme={theme}>Color</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>wellness</CodeCell>
-              <TableCell>Wellness & health events</TableCell>
-              <TableCell>Green</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>wellness</CodeCell>
+              <TableCell $theme={theme}>Wellness & health events</TableCell>
+              <TableCell $theme={theme}>Green</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>music</CodeCell>
-              <TableCell>Music concerts & festivals</TableCell>
-              <TableCell>Magenta</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>music</CodeCell>
+              <TableCell $theme={theme}>Music concerts & festivals</TableCell>
+              <TableCell $theme={theme}>Magenta</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>nightlife</CodeCell>
-              <TableCell>Night parties & clubs</TableCell>
-              <TableCell>Purple</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>nightlife</CodeCell>
+              <TableCell $theme={theme}>Night parties & clubs</TableCell>
+              <TableCell $theme={theme}>Purple</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>coffee</CodeCell>
-              <TableCell>Coffee meetups & socials</TableCell>
-              <TableCell>Brown</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>coffee</CodeCell>
+              <TableCell $theme={theme}>Coffee meetups & socials</TableCell>
+              <TableCell $theme={theme}>Brown</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>sports</CodeCell>
-              <TableCell>Sports events & games</TableCell>
-              <TableCell>Orange</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>sports</CodeCell>
+              <TableCell $theme={theme}>Sports events & games</TableCell>
+              <TableCell $theme={theme}>Orange</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>movies</CodeCell>
-              <TableCell>Movie screenings</TableCell>
-              <TableCell>Red</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>movies</CodeCell>
+              <TableCell $theme={theme}>Movie screenings</TableCell>
+              <TableCell $theme={theme}>Red</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>comedy</CodeCell>
-              <TableCell>Comedy shows & standup</TableCell>
-              <TableCell>Yellow</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>comedy</CodeCell>
+              <TableCell $theme={theme}>Comedy shows & standup</TableCell>
+              <TableCell $theme={theme}>Yellow</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>themeParks</CodeCell>
-              <TableCell>Theme parks & attractions</TableCell>
-              <TableCell>Blue</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>themeParks</CodeCell>
+              <TableCell $theme={theme}>Theme parks & attractions</TableCell>
+              <TableCell $theme={theme}>Blue</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>

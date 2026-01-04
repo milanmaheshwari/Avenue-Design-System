@@ -16,17 +16,25 @@ import {
   DocsParagraph,
   DocsCodeBlock
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary,
+  getCodeBlockBackground
+} from '../../utils/themeColors';
 
 // Styled Components for Documentation
-const ComponentDemo = styled.div`
-  background-color: ${colors.neutral[900]};
+const ComponentDemo = styled.div<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? colors.neutral[900] : colors.neutral[50]};
   border-radius: 16px;
   padding: ${spacing[8]};
   margin: ${spacing[6]} 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${colors.neutral[800]};
+  border: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: background-color 200ms ease, border-color 200ms ease;
 `;
 
 const VariantsGrid = styled.div`
@@ -36,72 +44,85 @@ const VariantsGrid = styled.div`
   margin: ${spacing[6]} 0;
 `;
 
-const VariantCard = styled.div`
-  background-color: ${colors.neutral[900]};
+const VariantCard = styled.div<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? colors.neutral[900] : colors.neutral[50]};
   border-radius: 16px;
   padding: ${spacing[6]};
-  border: 1px solid ${colors.neutral[800]};
+  border: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: background-color 200ms ease, border-color 200ms ease;
 `;
 
-const VariantHeader = styled.div`
+const VariantHeader = styled.div<{ $theme: 'light' | 'dark' }>`
   margin-bottom: ${spacing[4]};
   padding-bottom: ${spacing[3]};
-  border-bottom: 1px solid ${colors.neutral[800]};
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const VariantTitle = styled.h4`
+const VariantTitle = styled.h4<{ $theme: 'light' | 'dark' }>`
   font-family: ${typography.fontFamily.primary};
   font-size: 18px;
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[50]};
+  color: ${props => getTextColor(props.$theme)};
   margin: 0 0 ${spacing[2]};
+  transition: color 200ms ease;
 `;
 
-const VariantDescription = styled.p`
+const VariantDescription = styled.p<{ $theme: 'light' | 'dark' }>`
   font-family: ${typography.fontFamily.primary};
   font-size: 14px;
-  color: ${colors.neutral[400]};
+  color: ${props => getTextColorSecondary(props.$theme)};
   margin: 0;
+  transition: color 200ms ease;
 `;
 
-const VariantPreview = styled.div`
-  background-color: ${colors.neutral[950]};
+const VariantPreview = styled.div<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? colors.neutral[950] : colors.neutral[100]};
   border-radius: 12px;
   padding: ${spacing[6]};
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${colors.neutral[800]};
+  border: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: background-color 200ms ease, border-color 200ms ease;
 `;
 
-const PropsTable = styled.table`
+const PropsTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: 14px;
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
   
   th {
     text-align: left;
     padding: ${spacing[3]};
-    background-color: ${colors.neutral[100]};
-    border: 1px solid ${colors.neutral[200]};
+    background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+    border: 1px solid ${props => getBorderColor(props.$theme)};
     font-weight: ${typography.fontWeights.semibold};
-    color: ${colors.neutral[900]};
+    color: ${props => getTextColor(props.$theme)};
+    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
   }
   
   td {
     padding: ${spacing[3]};
-    border: 1px solid ${colors.neutral[200]};
-    color: ${colors.neutral[900]};
+    border: 1px solid ${props => getBorderColor(props.$theme)};
+    color: ${props => getTextColorSecondary(props.$theme)};
     vertical-align: top;
+    transition: border-color 200ms ease, color 200ms ease;
     
     code {
-      background-color: ${colors.neutral[100]};
+      background-color: ${props => getCodeBlockBackground(props.$theme)};
       padding: 2px 6px;
       border-radius: 4px;
       font-family: 'Monaco', 'Menlo', monospace;
       font-size: 13px;
+      color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+      transition: background-color 200ms ease, color 200ms ease;
     }
   }
 `;
@@ -120,19 +141,21 @@ const GuidelineCard = styled.div<{ $type: 'do' | 'dont' }>`
   padding: ${spacing[6]};
 `;
 
-const GuidelineTitle = styled.h4`
+const GuidelineTitle = styled.h4<{ $theme: 'light' | 'dark' }>`
   font-family: ${typography.fontFamily.primary};
   font-size: 16px;
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
   margin: 0 0 ${spacing[2]};
+  transition: color 200ms ease;
 `;
 
-const GuidelineText = styled.p`
+const GuidelineText = styled.p<{ $theme: 'light' | 'dark' }>`
   font-family: ${typography.fontFamily.primary};
   font-size: 14px;
-  color: ${colors.neutral[700]};
+  color: ${props => getTextColorSecondary(props.$theme)};
   margin: 0;
+  transition: color 200ms ease;
 `;
 
 const ActionButtonsContainer = styled.div`
@@ -169,8 +192,10 @@ const ActionButton = styled.button`
 `;
 
 export const TopbarPage: React.FC = () => {
+  const { theme } = useTheme();
+  
   return (
-    <DocsLayout>
+    <DocsLayout currentPath="/components/topbar">
       <DocsPageHeader title="Topbar" />
       <DocsParagraph>
         A versatile navigation header component with glassmorphic styling. The Topbar adapts to different contexts
@@ -187,7 +212,7 @@ export const TopbarPage: React.FC = () => {
           effects and subtle animations.
         </DocsParagraph>
         
-        <ComponentDemo>
+        <ComponentDemo $theme={theme}>
           <Topbar
             type="Web"
             size="Big"
@@ -213,12 +238,12 @@ export const TopbarPage: React.FC = () => {
 
         <VariantsGrid>
           {/* Web, Big, Default */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>1. Web, Big, Default</VariantTitle>
-              <VariantDescription>Desktop web navigation with Sign Up button (primary variant)</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>1. Web, Big, Default</VariantTitle>
+              <VariantDescription $theme={theme}>Desktop web navigation with Sign Up button (primary variant)</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="Web"
                 size="Big"
@@ -235,12 +260,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* Web, Big, Neutral */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>2. Web, Big, Neutral</VariantTitle>
-              <VariantDescription>Desktop web navigation with neutral Sign Up button styling</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>2. Web, Big, Neutral</VariantTitle>
+              <VariantDescription $theme={theme}>Desktop web navigation with neutral Sign Up button styling</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="Web"
                 size="Big"
@@ -257,12 +282,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* Web, Big, Signed In */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>3. Web, Big, Signed In</VariantTitle>
-              <VariantDescription>Desktop web navigation for authenticated users (includes Profile link)</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>3. Web, Big, Signed In</VariantTitle>
+              <VariantDescription $theme={theme}>Desktop web navigation for authenticated users (includes Profile link)</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="Web"
                 size="Big"
@@ -279,12 +304,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* Web, Small, Default */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>4. Web, Small, Default</VariantTitle>
-              <VariantDescription>Mobile web navigation (collapsed)</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>4. Web, Small, Default</VariantTitle>
+              <VariantDescription $theme={theme}>Mobile web navigation (collapsed)</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="Web"
                 size="Small"
@@ -295,12 +320,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* Web, Small, Expanded */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>5. Web, Small, Expanded</VariantTitle>
-              <VariantDescription>Mobile web navigation (expanded menu)</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>5. Web, Small, Expanded</VariantTitle>
+              <VariantDescription $theme={theme}>Mobile web navigation (expanded menu)</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="Web"
                 size="Small"
@@ -316,12 +341,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* App, Small, Default */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>6. App, Small, Default</VariantTitle>
-              <VariantDescription>Mobile app home navigation</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>6. App, Small, Default</VariantTitle>
+              <VariantDescription $theme={theme}>Mobile app home navigation</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="App"
                 size="Small"
@@ -332,12 +357,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* App, Small, Event */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>7. App, Small, Event</VariantTitle>
-              <VariantDescription>Mobile app event detail page with back button and actions</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>7. App, Small, Event</VariantTitle>
+              <VariantDescription $theme={theme}>Mobile app event detail page with back button and actions</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="App"
                 size="Small"
@@ -362,12 +387,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* App, Small, Organiser */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>8. App, Small, Organiser</VariantTitle>
-              <VariantDescription>Mobile app organiser view with multiple actions</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>8. App, Small, Organiser</VariantTitle>
+              <VariantDescription $theme={theme}>Mobile app organiser view with multiple actions</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="App"
                 size="Small"
@@ -397,12 +422,12 @@ export const TopbarPage: React.FC = () => {
           </VariantCard>
 
           {/* App, Small, Checkout */}
-          <VariantCard>
-            <VariantHeader>
-              <VariantTitle>9. App, Small, Checkout</VariantTitle>
-              <VariantDescription>Mobile app checkout flow with back button only</VariantDescription>
+          <VariantCard $theme={theme}>
+            <VariantHeader $theme={theme}>
+              <VariantTitle $theme={theme}>9. App, Small, Checkout</VariantTitle>
+              <VariantDescription $theme={theme}>Mobile app checkout flow with back button only</VariantDescription>
             </VariantHeader>
-            <VariantPreview>
+            <VariantPreview $theme={theme}>
               <Topbar
                 type="App"
                 size="Small"
@@ -419,7 +444,7 @@ export const TopbarPage: React.FC = () => {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Props</DocsSubsectionTitle>
-        <PropsTable>
+        <PropsTable $theme={theme}>
           <thead>
             <tr>
               <th>Prop</th>
@@ -550,37 +575,37 @@ export const TopbarPage: React.FC = () => {
         <DocsSectionTitle>Usage Guidelines</DocsSectionTitle>
         
         <GuidelineSection>
-          <GuidelineCard $type="do">
-            <GuidelineTitle>✓ Do</GuidelineTitle>
-            <GuidelineText>
+          <GuidelineCard $type="do" $theme={theme}>
+            <GuidelineTitle $theme={theme}>✓ Do</GuidelineTitle>
+            <GuidelineText $theme={theme}>
               Use Web Big variants for desktop experiences (1440px+) and Web/App Small variants for mobile (360px).
             </GuidelineText>
           </GuidelineCard>
           
-          <GuidelineCard $type="do">
-            <GuidelineTitle>✓ Do</GuidelineTitle>
-            <GuidelineText>
+          <GuidelineCard $type="do" $theme={theme}>
+            <GuidelineTitle $theme={theme}>✓ Do</GuidelineTitle>
+            <GuidelineText $theme={theme}>
               Match the state to the user's context: Default for logged-out, Signed In for authenticated, Expanded for open mobile menu.
             </GuidelineText>
           </GuidelineCard>
           
-          <GuidelineCard $type="do">
-            <GuidelineTitle>✓ Do</GuidelineTitle>
-            <GuidelineText>
+          <GuidelineCard $type="do" $theme={theme}>
+            <GuidelineTitle $theme={theme}>✓ Do</GuidelineTitle>
+            <GuidelineText $theme={theme}>
               Use consistent logo assets across all variants for brand continuity.
             </GuidelineText>
           </GuidelineCard>
           
-          <GuidelineCard $type="dont">
-            <GuidelineTitle>✗ Don't</GuidelineTitle>
-            <GuidelineText>
+          <GuidelineCard $type="dont" $theme={theme}>
+            <GuidelineTitle $theme={theme}>✗ Don't</GuidelineTitle>
+            <GuidelineText $theme={theme}>
               Don't mix Web and App types in the same product context - use Web for web experiences and App for native mobile.
             </GuidelineText>
           </GuidelineCard>
           
-          <GuidelineCard $type="dont">
-            <GuidelineTitle>✗ Don't</GuidelineTitle>
-            <GuidelineText>
+          <GuidelineCard $type="dont" $theme={theme}>
+            <GuidelineTitle $theme={theme}>✗ Don't</GuidelineTitle>
+            <GuidelineText $theme={theme}>
               Don't use the Big size variant on mobile screens - always use Small for viewports under 768px.
             </GuidelineText>
           </GuidelineCard>

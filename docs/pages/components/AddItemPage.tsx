@@ -16,6 +16,13 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 import demoImage from '../../../assets/a5561ce6332b43441a50ac1c989d165d124b3efd.png';
 
 // Demo image placeholder
@@ -55,38 +62,47 @@ const VariantLabel = styled.div`
   text-align: center;
 `;
 
-const SpecTable = styled.table`
+const SpecTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const CodeCell = styled(TableCell)`
+const CodeCell = styled(TableCell)<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
-  color: ${colors.primary[600]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: color 200ms ease;
 `;
 
 const GuidelineSection = styled.div`
@@ -125,6 +141,7 @@ const GuidelineText = styled.p`
 
 export const AddItemPage: React.FC = () => {
   const [addCount, setAddCount] = useState(0);
+  const { theme } = useTheme();
 
   return (
     <DocsLayout currentPath="/components/add-item">
@@ -227,185 +244,185 @@ export const AddItemPage: React.FC = () => {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Dimensions</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Big Variant</TableHeader>
-              <TableHeader>Small Variant</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Big Variant</TableHeader>
+              <TableHeader $theme={theme}>Small Variant</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Card Width</TableCell>
-              <TableCell>100% (container width)</TableCell>
-              <TableCell>100% (container width)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Card Width</TableCell>
+              <TableCell $theme={theme}>100% (container width)</TableCell>
+              <TableCell $theme={theme}>100% (container width)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image Height</TableCell>
-              <TableCell>240px</TableCell>
-              <TableCell>160px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Height</TableCell>
+              <TableCell $theme={theme}>240px</TableCell>
+              <TableCell $theme={theme}>160px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image Border Radius</TableCell>
-              <TableCell>20px</TableCell>
-              <TableCell>16px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Border Radius</TableCell>
+              <TableCell $theme={theme}>20px</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button Border Radius</TableCell>
-              <TableCell>12px</TableCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button Border Radius</TableCell>
+              <TableCell $theme={theme}>12px</TableCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Spacing</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Value</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Card Gap (Big)</TableCell>
-              <CodeCell>spacing[4]</CodeCell>
-              <TableCell>16px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Card Gap (Big)</TableCell>
+              <CodeCell $theme={theme}>spacing[4]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Card Gap (Small)</TableCell>
-              <CodeCell>spacing[3]</CodeCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Card Gap (Small)</TableCell>
+              <CodeCell $theme={theme}>spacing[3]</CodeCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Details Gap (Big)</TableCell>
-              <CodeCell>spacing[6]</CodeCell>
-              <TableCell>24px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Details Gap (Big)</TableCell>
+              <CodeCell $theme={theme}>spacing[6]</CodeCell>
+              <TableCell $theme={theme}>24px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Details Gap (Small)</TableCell>
-              <CodeCell>spacing[4]</CodeCell>
-              <TableCell>16px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Details Gap (Small)</TableCell>
+              <CodeCell $theme={theme}>spacing[4]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Text Gap (Big)</TableCell>
-              <CodeCell>spacing[2]</CodeCell>
-              <TableCell>8px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Text Gap (Big)</TableCell>
+              <CodeCell $theme={theme}>spacing[2]</CodeCell>
+              <TableCell $theme={theme}>8px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Text Gap (Small)</TableCell>
-              <CodeCell>spacing[1]</CodeCell>
-              <TableCell>4px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Text Gap (Small)</TableCell>
+              <CodeCell $theme={theme}>spacing[1]</CodeCell>
+              <TableCell $theme={theme}>4px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button Padding (Big)</TableCell>
-              <CodeCell>spacing[4]</CodeCell>
-              <TableCell>16px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button Padding (Big)</TableCell>
+              <CodeCell $theme={theme}>spacing[4]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button Padding (Small)</TableCell>
-              <CodeCell>spacing[3]</CodeCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button Padding (Small)</TableCell>
+              <CodeCell $theme={theme}>spacing[3]</CodeCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Typography</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Size</TableHeader>
-              <TableHeader>Weight</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Size</TableHeader>
+              <TableHeader $theme={theme}>Weight</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Title (Big)</TableCell>
-              <CodeCell>typography.desktop.heading[800]</CodeCell>
-              <TableCell>16px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title (Big)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.heading[800]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Title (Small)</TableCell>
-              <CodeCell>typography.mobile.heading[600]</CodeCell>
-              <TableCell>14px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title (Small)</TableCell>
+              <CodeCell $theme={theme}>typography.mobile.heading[600]</CodeCell>
+              <TableCell $theme={theme}>14px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Price (Big)</TableCell>
-              <CodeCell>typography.desktop.body.medium[400]</CodeCell>
-              <TableCell>14px</TableCell>
-              <TableCell>Medium (500)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Price (Big)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.body.medium[400]</CodeCell>
+              <TableCell $theme={theme}>14px</TableCell>
+              <TableCell $theme={theme}>Medium (500)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Price (Small)</TableCell>
-              <CodeCell>typography.mobile.body.medium[300]</CodeCell>
-              <TableCell>13px</TableCell>
-              <TableCell>Medium (500)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Price (Small)</TableCell>
+              <CodeCell $theme={theme}>typography.mobile.body.medium[300]</CodeCell>
+              <TableCell $theme={theme}>13px</TableCell>
+              <TableCell $theme={theme}>Medium (500)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button (Big)</TableCell>
-              <CodeCell>typography.desktop.button[300]</CodeCell>
-              <TableCell>16px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button (Big)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.button[300]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button (Small)</TableCell>
-              <CodeCell>typography.mobile.button[200]</CodeCell>
-              <TableCell>14px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button (Small)</TableCell>
+              <CodeCell $theme={theme}>typography.mobile.button[200]</CodeCell>
+              <TableCell $theme={theme}>14px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Colors</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Usage</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Usage</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Image Background</TableCell>
-              <CodeCell>colors.neutral[950]</CodeCell>
-              <TableCell>Fallback background</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Background</TableCell>
+              <CodeCell $theme={theme}>colors.neutral[950]</CodeCell>
+              <TableCell $theme={theme}>Fallback background</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Category Gradient</TableCell>
-              <CodeCell>colors[category].alpha[5/10]</CodeCell>
-              <TableCell>Category-themed overlay</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Category Gradient</TableCell>
+              <CodeCell $theme={theme}>colors[category].alpha[5/10]</CodeCell>
+              <TableCell $theme={theme}>Category-themed overlay</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image Border</TableCell>
-              <CodeCell>colors.neutral.light.alpha[10]</CodeCell>
-              <TableCell>Subtle border overlay</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Border</TableCell>
+              <CodeCell $theme={theme}>colors.neutral.light.alpha[10]</CodeCell>
+              <TableCell $theme={theme}>Subtle border overlay</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Title Text</TableCell>
-              <CodeCell>colors.neutral.light.alpha[90]</CodeCell>
-              <TableCell>High contrast on dark</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title Text</TableCell>
+              <CodeCell $theme={theme}>colors.neutral.light.alpha[90]</CodeCell>
+              <TableCell $theme={theme}>High contrast on dark</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Price Text</TableCell>
-              <CodeCell>colors.neutral.light.alpha[75]</CodeCell>
-              <TableCell>Secondary text</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Price Text</TableCell>
+              <CodeCell $theme={theme}>colors.neutral.light.alpha[75]</CodeCell>
+              <TableCell $theme={theme}>Secondary text</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button Background</TableCell>
-              <CodeCell>colors.neutral.light.alpha[5/10]</CodeCell>
-              <TableCell>Gradient fill</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button Background</TableCell>
+              <CodeCell $theme={theme}>colors.neutral.light.alpha[5/10]</CodeCell>
+              <TableCell $theme={theme}>Gradient fill</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button Text</TableCell>
-              <CodeCell>colors.primary[50]</CodeCell>
-              <TableCell>Light text on gradient</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button Text</TableCell>
+              <CodeCell $theme={theme}>colors.primary[50]</CodeCell>
+              <TableCell $theme={theme}>Light text on gradient</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -420,34 +437,34 @@ export const AddItemPage: React.FC = () => {
           The ADD button responds to user interaction with smooth transitions and transforms.
         </DocsParagraph>
         
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>State</TableHeader>
-              <TableHeader>Property</TableHeader>
-              <TableHeader>Value</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>State</TableHeader>
+              <TableHeader $theme={theme}>Property</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Default</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(0)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Default</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(0)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Hover</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(-2px)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Hover</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(-2px)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Active</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(0)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Active</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(0)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>All States</TableCell>
-              <TableCell>Transition</TableCell>
-              <TableCell>all 250ms cubic-bezier(0.4, 0, 0.2, 1)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>All States</TableCell>
+              <TableCell $theme={theme}>Transition</TableCell>
+              <TableCell $theme={theme}>all 250ms cubic-bezier(0.4, 0, 0.2, 1)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -552,29 +569,29 @@ export const AddItemPage: React.FC = () => {
         </DocsParagraph>
 
         <DocsSubsectionTitle>Color Contrast</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Contrast Ratio</TableHeader>
-              <TableHeader>WCAG Level</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Contrast Ratio</TableHeader>
+              <TableHeader $theme={theme}>WCAG Level</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Title Text (90% opacity on dark)</TableCell>
-              <TableCell>{'>'} 14:1</TableCell>
-              <TableCell>AAA</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Title Text (90% opacity on dark)</TableCell>
+              <TableCell $theme={theme}>{'>'} 14:1</TableCell>
+              <TableCell $theme={theme}>AAA</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Price Text (75% opacity on dark)</TableCell>
-              <TableCell>{'>'} 7:1</TableCell>
-              <TableCell>AAA</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Price Text (75% opacity on dark)</TableCell>
+              <TableCell $theme={theme}>{'>'} 7:1</TableCell>
+              <TableCell $theme={theme}>AAA</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Button Text</TableCell>
-              <TableCell>{'>'} 8:1</TableCell>
-              <TableCell>AAA</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Button Text</TableCell>
+              <TableCell $theme={theme}>{'>'} 8:1</TableCell>
+              <TableCell $theme={theme}>AAA</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -681,51 +698,51 @@ function ProductGrid() {
 }`}</DocsCodeBlock>
 
         <DocsSubsectionTitle>Props API</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Prop</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Default</TableHeader>
-              <TableHeader>Description</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Prop</TableHeader>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Default</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>size</CodeCell>
-              <TableCell>'Big' | 'Small'</TableCell>
-              <TableCell>'Big'</TableCell>
-              <TableCell>Size variant of the card</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>size</CodeCell>
+              <TableCell $theme={theme}>'Big' | 'Small'</TableCell>
+              <TableCell $theme={theme}>'Big'</TableCell>
+              <TableCell $theme={theme}>Size variant of the card</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>title</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Product title (max 2 lines)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>title</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Product title (max 2 lines)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>price</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Product price (formatted string)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>price</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Product price (formatted string)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>imageUrl</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Product image URL (1:1 ratio recommended)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>imageUrl</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Product image URL (1:1 ratio recommended)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>onAdd</CodeCell>
-              <TableCell>{'() => void'}</TableCell>
-              <TableCell>undefined</TableCell>
-              <TableCell>Callback when ADD button is clicked</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>onAdd</CodeCell>
+              <TableCell $theme={theme}>{'() => void'}</TableCell>
+              <TableCell $theme={theme}>undefined</TableCell>
+              <TableCell $theme={theme}>Callback when ADD button is clicked</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>category</CodeCell>
-              <TableCell>CategoryType</TableCell>
-              <TableCell>'movies'</TableCell>
-              <TableCell>Category for gradient theming</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>category</CodeCell>
+              <TableCell $theme={theme}>CategoryType</TableCell>
+              <TableCell $theme={theme}>'movies'</TableCell>
+              <TableCell $theme={theme}>Category for gradient theming</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>

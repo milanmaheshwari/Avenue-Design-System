@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { GlobalStyles } from './styles/GlobalStyles';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -81,10 +82,10 @@ export const App: React.FC = () => {
   };
 
   return (
-    <>
+    <ThemeProvider>
       <GlobalStyles />
       {renderPage()}
-    </>
+    </ThemeProvider>
   );
 };
 

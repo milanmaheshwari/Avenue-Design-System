@@ -15,6 +15,14 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary,
+  getInlineCodeBackground
+} from '../../utils/themeColors';
 
 const ComponentDemo = styled.div`
   background: rgba(10, 10, 10, 1);
@@ -43,69 +51,84 @@ const VariantGridBig = styled.div`
   margin: 20px 0;
 `;
 
-const SpecTable = styled.table`
+const SpecTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const CodeCell = styled(TableCell)`
+const CodeCell = styled(TableCell)<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
-  color: ${colors.primary[600]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: color 200ms ease;
 `;
 
-const List = styled.ul`
+const List = styled.ul<{ $theme: 'light' | 'dark' }>`
   list-style: disc;
   padding-left: ${spacing[6]};
   margin: ${spacing[4]} 0;
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const ListItem = styled.li`
+const ListItem = styled.li<{ $theme: 'light' | 'dark' }>`
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[300].fontSize};
   line-height: ${typography.desktop.body.regular[300].lineHeight};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
   margin-bottom: ${spacing[2]};
+  transition: color 200ms ease;
   
   strong {
-    color: ${colors.neutral[900]};
+    color: ${props => getTextColor(props.$theme)};
     font-weight: ${typography.fontWeights.bold};
+    transition: color 200ms ease;
   }
   
   code {
     font-family: 'Monaco', 'Menlo', monospace;
     font-size: 0.9em;
-    color: ${colors.primary[600]};
-    background-color: ${colors.primary.alpha[5]};
+    color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+    background-color: ${props => getInlineCodeBackground(props.$theme)};
     padding: 2px ${spacing[2]};
     border-radius: 4px;
+    transition: color 200ms ease, background-color 200ms ease;
   }
 `;
 
 export function CategoryCardPage() {
+  const { theme } = useTheme();
   const allThemes = ['music', 'nightlife', 'coffee', 'sports', 'movies', 'comedy', 'wellness', 'themeParks'] as const;
 
   return (
@@ -168,54 +191,54 @@ export function CategoryCardPage() {
 
       <DocsSection>
         <DocsSectionTitle>Theme Specifications</DocsSectionTitle>
-        <SpecTable>
-          <TableHead>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
             <tr>
-              <TableHeader>Theme</TableHeader>
-              <TableHeader>Title</TableHeader>
-              <TableHeader>Description</TableHeader>
+              <TableHeader $theme={theme}>Theme</TableHeader>
+              <TableHeader $theme={theme}>Title</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </tr>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>music</CodeCell>
-              <TableCell>Music</TableCell>
-              <TableCell>Explore concerts, live shows and festivals near you</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>music</CodeCell>
+              <TableCell $theme={theme}>Music</TableCell>
+              <TableCell $theme={theme}>Explore concerts, live shows and festivals near you</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>nightlife</CodeCell>
-              <TableCell>Night Parties</TableCell>
-              <TableCell>Groove and dance the night away with top DJs and parties nearby</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>nightlife</CodeCell>
+              <TableCell $theme={theme}>Night Parties</TableCell>
+              <TableCell $theme={theme}>Groove and dance the night away with top DJs and parties nearby</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>coffee</CodeCell>
-              <TableCell>Coffee Parties</TableCell>
-              <TableCell>Taste brews and enjoy the company</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>coffee</CodeCell>
+              <TableCell $theme={theme}>Coffee Parties</TableCell>
+              <TableCell $theme={theme}>Taste brews and enjoy the company</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>sports</CodeCell>
-              <TableCell>Sports</TableCell>
-              <TableCell>Find matches and tournaments near you</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>sports</CodeCell>
+              <TableCell $theme={theme}>Sports</TableCell>
+              <TableCell $theme={theme}>Find matches and tournaments near you</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>movies</CodeCell>
-              <TableCell>Movies</TableCell>
-              <TableCell>Find the latest movie releases in theatres near you</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>movies</CodeCell>
+              <TableCell $theme={theme}>Movies</TableCell>
+              <TableCell $theme={theme}>Find the latest movie releases in theatres near you</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>comedy</CodeCell>
-              <TableCell>Comedy</TableCell>
-              <TableCell>Laugh out loud at live standup comedy shows</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>comedy</CodeCell>
+              <TableCell $theme={theme}>Comedy</TableCell>
+              <TableCell $theme={theme}>Laugh out loud at live standup comedy shows</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>wellness</CodeCell>
-              <TableCell>Wellness</TableCell>
-              <TableCell>Find your inner peace with yoga and meditation events</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>wellness</CodeCell>
+              <TableCell $theme={theme}>Wellness</TableCell>
+              <TableCell $theme={theme}>Find your inner peace with yoga and meditation events</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>themeParks</CodeCell>
-              <TableCell>Theme Parks</TableCell>
-              <TableCell>Experience the best rides with access to theme parks</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>themeParks</CodeCell>
+              <TableCell $theme={theme}>Theme Parks</TableCell>
+              <TableCell $theme={theme}>Experience the best rides with access to theme parks</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -225,90 +248,90 @@ export function CategoryCardPage() {
         <DocsSectionTitle>Usage Guidelines</DocsSectionTitle>
         
         <DocsSubsectionTitle>When to Use</DocsSubsectionTitle>
-        <List>
-          <ListItem>Displaying event categories on home or browse pages</ListItem>
-          <ListItem>Creating category navigation systems</ListItem>
-          <ListItem>Building visual category filters</ListItem>
-          <ListItem>Showcasing event types with rich imagery</ListItem>
+        <List $theme={theme}>
+          <ListItem $theme={theme}>Displaying event categories on home or browse pages</ListItem>
+          <ListItem $theme={theme}>Creating category navigation systems</ListItem>
+          <ListItem $theme={theme}>Building visual category filters</ListItem>
+          <ListItem $theme={theme}>Showcasing event types with rich imagery</ListItem>
         </List>
 
         <DocsSubsectionTitle>Best Practices</DocsSubsectionTitle>
-        <List>
-          <ListItem>Use big size for hero sections and main category displays</ListItem>
-          <ListItem>Use small size for compact grids and mobile layouts</ListItem>
-          <ListItem>Maintain consistent sizing within the same section</ListItem>
-          <ListItem>Always provide onClick handlers for interactive cards</ListItem>
-          <ListItem>Use appropriate themes that match your event categories</ListItem>
+        <List $theme={theme}>
+          <ListItem $theme={theme}>Use big size for hero sections and main category displays</ListItem>
+          <ListItem $theme={theme}>Use small size for compact grids and mobile layouts</ListItem>
+          <ListItem $theme={theme}>Maintain consistent sizing within the same section</ListItem>
+          <ListItem $theme={theme}>Always provide onClick handlers for interactive cards</ListItem>
+          <ListItem $theme={theme}>Use appropriate themes that match your event categories</ListItem>
         </List>
 
         <DocsSubsectionTitle>Accessibility</DocsSubsectionTitle>
-        <List>
-          <ListItem>Cards are keyboard accessible when onClick is provided</ListItem>
-          <ListItem>Images include alt text based on category title</ListItem>
-          <ListItem>Sufficient color contrast for text readability</ListItem>
-          <ListItem>Hover and active states provide visual feedback</ListItem>
+        <List $theme={theme}>
+          <ListItem $theme={theme}>Cards are keyboard accessible when onClick is provided</ListItem>
+          <ListItem $theme={theme}>Images include alt text based on category title</ListItem>
+          <ListItem $theme={theme}>Sufficient color contrast for text readability</ListItem>
+          <ListItem $theme={theme}>Hover and active states provide visual feedback</ListItem>
         </List>
       </DocsSection>
 
       <DocsSection>
         <DocsSectionTitle>Props</DocsSectionTitle>
-        <SpecTable>
-          <TableHead>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
             <tr>
-              <TableHeader>Prop</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Default</TableHeader>
-              <TableHeader>Description</TableHeader>
+              <TableHeader $theme={theme}>Prop</TableHeader>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Default</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </tr>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>theme</CodeCell>
-              <CodeCell>CategoryTheme</CodeCell>
-              <CodeCell>'music'</CodeCell>
-              <TableCell>Theme variant (music, nightlife, coffee, sports, movies, comedy, wellness, themeParks)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>theme</CodeCell>
+              <CodeCell $theme={theme}>CategoryTheme</CodeCell>
+              <CodeCell $theme={theme}>'music'</CodeCell>
+              <TableCell $theme={theme}>Theme variant (music, nightlife, coffee, sports, movies, comedy, wellness, themeParks)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>size</CodeCell>
-              <CodeCell>'big' | 'small'</CodeCell>
-              <CodeCell>'big'</CodeCell>
-              <TableCell>Size of the card (big: 300×360px, small: 160×220px)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>size</CodeCell>
+              <CodeCell $theme={theme}>'big' | 'small'</CodeCell>
+              <CodeCell $theme={theme}>'big'</CodeCell>
+              <TableCell $theme={theme}>Size of the card (big: 300×360px, small: 160×220px)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>title</CodeCell>
-              <CodeCell>string</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Custom title (uses theme default if not provided)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>title</CodeCell>
+              <CodeCell $theme={theme}>string</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Custom title (uses theme default if not provided)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>subtitle</CodeCell>
-              <CodeCell>string</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Custom subtitle (uses theme default if not provided)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>subtitle</CodeCell>
+              <CodeCell $theme={theme}>string</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Custom subtitle (uses theme default if not provided)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>icon</CodeCell>
-              <CodeCell>React.ReactNode</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Custom icon component</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>icon</CodeCell>
+              <CodeCell $theme={theme}>React.ReactNode</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Custom icon component</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>imageUrl</CodeCell>
-              <CodeCell>string</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Custom image URL (uses theme default if not provided)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>imageUrl</CodeCell>
+              <CodeCell $theme={theme}>string</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Custom image URL (uses theme default if not provided)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>onClick</CodeCell>
-              <CodeCell>() =&gt; void</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Click handler for the card</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>onClick</CodeCell>
+              <CodeCell $theme={theme}>() =&gt; void</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Click handler for the card</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>className</CodeCell>
-              <CodeCell>string</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Additional CSS class</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>className</CodeCell>
+              <CodeCell $theme={theme}>string</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Additional CSS class</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -419,27 +442,27 @@ function ResponsiveCategories() {
         </DocsParagraph>
         
         <DocsSubsectionTitle>Typography</DocsSubsectionTitle>
-        <List>
-          <ListItem><strong>Title (Big):</strong> 24px / Bold / -0.48px letter-spacing / 28px line-height</ListItem>
-          <ListItem><strong>Title (Small):</strong> 16px / Bold / -0.32px letter-spacing / 20px line-height</ListItem>
-          <ListItem><strong>Subtitle (Big):</strong> 16px / Regular / 22px line-height</ListItem>
-          <ListItem><strong>Subtitle (Small):</strong> 13px / Regular / 18px line-height</ListItem>
+        <List $theme={theme}>
+          <ListItem $theme={theme}><strong>Title (Big):</strong> 24px / Bold / -0.48px letter-spacing / 28px line-height</ListItem>
+          <ListItem $theme={theme}><strong>Title (Small):</strong> 16px / Bold / -0.32px letter-spacing / 20px line-height</ListItem>
+          <ListItem $theme={theme}><strong>Subtitle (Big):</strong> 16px / Regular / 22px line-height</ListItem>
+          <ListItem $theme={theme}><strong>Subtitle (Small):</strong> 13px / Regular / 18px line-height</ListItem>
         </List>
 
         <DocsSubsectionTitle>Spacing</DocsSubsectionTitle>
-        <List>
-          <ListItem><strong>Big Card Padding:</strong> spacing[5] (20px)</ListItem>
-          <ListItem><strong>Small Card Padding:</strong> spacing[3] (12px)</ListItem>
-          <ListItem><strong>Content Gap (Big):</strong> spacing[3] (12px)</ListItem>
-          <ListItem><strong>Content Gap (Small):</strong> spacing[2] (8px)</ListItem>
+        <List $theme={theme}>
+          <ListItem $theme={theme}><strong>Big Card Padding:</strong> spacing[5] (20px)</ListItem>
+          <ListItem $theme={theme}><strong>Small Card Padding:</strong> spacing[3] (12px)</ListItem>
+          <ListItem $theme={theme}><strong>Content Gap (Big):</strong> spacing[3] (12px)</ListItem>
+          <ListItem $theme={theme}><strong>Content Gap (Small):</strong> spacing[2] (8px)</ListItem>
         </List>
 
         <DocsSubsectionTitle>Effects</DocsSubsectionTitle>
-        <List>
-          <ListItem><strong>Card Shadow:</strong> 0px 0px 20px 5px (theme-specific)</ListItem>
-          <ListItem><strong>Image Shadow:</strong> 0px 20px 40px 0px neutral dark alpha 50%</ListItem>
-          <ListItem><strong>Border Radius (Big):</strong> 20px</ListItem>
-          <ListItem><strong>Border Radius (Small):</strong> 12px</ListItem>
+        <List $theme={theme}>
+          <ListItem $theme={theme}><strong>Card Shadow:</strong> 0px 0px 20px 5px (theme-specific)</ListItem>
+          <ListItem $theme={theme}><strong>Image Shadow:</strong> 0px 20px 40px 0px neutral dark alpha 50%</ListItem>
+          <ListItem $theme={theme}><strong>Border Radius (Big):</strong> 20px</ListItem>
+          <ListItem $theme={theme}><strong>Border Radius (Small):</strong> 12px</ListItem>
         </List>
       </DocsSection>
     </DocsLayout>

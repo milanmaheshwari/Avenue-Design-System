@@ -15,6 +15,13 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 
 const SpacingGrid = styled.div`
   display: flex;
@@ -23,13 +30,14 @@ const SpacingGrid = styled.div`
   margin: ${spacing[6]} 0;
 `;
 
-const SpacingRow = styled.div`
+const SpacingRow = styled.div<{ $theme: 'light' | 'dark' }>`
   display: flex;
   align-items: center;
   gap: ${spacing[4]};
   padding: ${spacing[3]};
-  background-color: ${colors.neutral[100]};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : colors.neutral[100]};
   border-radius: 8px;
+  transition: background-color 200ms ease;
 `;
 
 const SpacingVisual = styled.div<{ $size: string }>`
@@ -47,38 +55,43 @@ const SpacingLabel = styled.div`
   font-size: 14px;
 `;
 
-const TokenName = styled.span`
-  color: ${colors.neutral[900]};
+const TokenName = styled.span<{ $theme: 'light' | 'dark' }>`
+  color: ${props => getTextColor(props.$theme)};
   font-weight: ${typography.fontWeights.medium};
+  transition: color 200ms ease;
 `;
 
-const TokenValue = styled.span`
-  color: ${colors.neutral[600]};
+const TokenValue = styled.span<{ $theme: 'light' | 'dark' }>`
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const SpacingExample = styled.div`
+const SpacingExample = styled.div<{ $theme: 'light' | 'dark' }>`
   margin: ${spacing[6]} 0;
   padding: ${spacing[6]};
-  background-color: ${colors.neutral[100]};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : colors.neutral[100]};
   border-radius: 12px;
-  border: 2px dashed ${colors.neutral[300]};
+  border: 2px dashed ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[300]};
+  transition: background-color 200ms ease, border-color 200ms ease;
 `;
 
-const ExampleBox = styled.div<{ $spacing: string }>`
+const ExampleBox = styled.div<{ $spacing: string; $theme: 'light' | 'dark' }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: ${props => props.$spacing};
-  background-color: ${colors.primary[100]};
+  background-color: ${props => props.$theme === 'dark' ? colors.primary.alpha[10] : colors.primary[100]};
   border: 2px solid ${colors.primary[600]};
   border-radius: 8px;
-  color: ${colors.primary[700]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[700]};
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.medium[400].fontSize};
   font-weight: ${typography.fontWeights.medium};
+  transition: background-color 200ms ease, color 200ms ease;
 `;
 
 export const SpacingPage: React.FC = () => {
+  const { theme } = useTheme();
   const spacingTokens = [
     { key: 0, value: '0px' },
     { key: 1, value: '4px' },
@@ -120,11 +133,11 @@ const Card = styled.div\`
         </DocsParagraph>
         <SpacingGrid>
           {spacingTokens.map(({ key, value }) => (
-            <SpacingRow key={key}>
+            <SpacingRow key={key} $theme={theme}>
               <SpacingVisual $size={value} />
               <SpacingLabel>
-                <TokenName>spacing[{key}]</TokenName>
-                <TokenValue>{value}</TokenValue>
+                <TokenName $theme={theme}>spacing[{key}]</TokenName>
+                <TokenValue $theme={theme}>{value}</TokenValue>
               </SpacingLabel>
             </SpacingRow>
           ))}
@@ -150,13 +163,13 @@ spacing.semantic['3xl']  // 64px`}</DocsCodeBlock>
         
         <DocsSubsectionTitle>Padding</DocsSubsectionTitle>
         <DocsParagraph>Use spacing tokens for consistent padding:</DocsParagraph>
-        <SpacingExample>
-          <ExampleBox $spacing={spacing[4]}>
+        <SpacingExample $theme={theme}>
+          <ExampleBox $spacing={spacing[4]} $theme={theme}>
             padding: spacing[4] (16px)
           </ExampleBox>
         </SpacingExample>
-        <SpacingExample>
-          <ExampleBox $spacing={spacing[8]}>
+        <SpacingExample $theme={theme}>
+          <ExampleBox $spacing={spacing[8]} $theme={theme}>
             padding: spacing[8] (32px)
           </ExampleBox>
         </SpacingExample>

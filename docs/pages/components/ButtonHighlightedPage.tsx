@@ -16,6 +16,13 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 
 const ComponentDemo = styled.div`
   background-color: ${colors.neutral[950]};
@@ -62,41 +69,51 @@ const VariantPreview = styled.div`
   min-height: 80px;
 `;
 
-const SpecTable = styled.table`
+const SpecTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const CodeCell = styled(TableCell)`
+const CodeCell = styled(TableCell)<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
-  color: ${colors.primary[600]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: color 200ms ease;
 `;
 
 export const ButtonHighlightedPage = () => {
+  const { theme } = useTheme();
   const [clickCount, setClickCount] = useState(0);
 
   return (
@@ -149,29 +166,29 @@ export const ButtonHighlightedPage = () => {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Dimensions</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Property</TableHeader>
-              <TableHeader>Value</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Property</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Padding</TableCell>
-              <TableCell>12px 16px (vertical horizontal)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Padding</TableCell>
+              <TableCell $theme={theme}>12px 16px (vertical horizontal)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Border Radius</TableCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Border Radius</TableCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Font Size</TableCell>
-              <TableCell>16px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Font Size</TableCell>
+              <TableCell $theme={theme}>16px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Gap</TableCell>
-              <TableCell>4px (between text and arrow)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Gap</TableCell>
+              <TableCell $theme={theme}>4px (between text and arrow)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -261,68 +278,68 @@ export const ButtonHighlightedPage = () => {
       {/* Props API */}
       <DocsSection>
         <DocsSectionTitle>Props</DocsSectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Prop</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Default</TableHeader>
-              <TableHeader>Description</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Prop</TableHeader>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Default</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>children</CodeCell>
-              <CodeCell>ReactNode</CodeCell>
-              <CodeCell>'Sign Up'</CodeCell>
-              <TableCell>Button text content</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>children</CodeCell>
+              <CodeCell $theme={theme}>ReactNode</CodeCell>
+              <CodeCell $theme={theme}>'Sign Up'</CodeCell>
+              <TableCell $theme={theme}>Button text content</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>type</CodeCell>
-              <CodeCell>'primary' | 'neutral'</CodeCell>
-              <CodeCell>'primary'</CodeCell>
-              <TableCell>Visual variant type</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>type</CodeCell>
+              <CodeCell $theme={theme}>'primary' | 'neutral'</CodeCell>
+              <CodeCell $theme={theme}>'primary'</CodeCell>
+              <TableCell $theme={theme}>Visual variant type</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>onClick</CodeCell>
-              <CodeCell>{'() => void'}</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Click handler function</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>onClick</CodeCell>
+              <CodeCell $theme={theme}>{'() => void'}</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Click handler function</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>disabled</CodeCell>
-              <CodeCell>boolean</CodeCell>
-              <CodeCell>false</CodeCell>
-              <TableCell>Disabled state</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>disabled</CodeCell>
+              <CodeCell $theme={theme}>boolean</CodeCell>
+              <CodeCell $theme={theme}>false</CodeCell>
+              <TableCell $theme={theme}>Disabled state</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>className</CodeCell>
-              <CodeCell>string</CodeCell>
-              <CodeCell>undefined</CodeCell>
-              <TableCell>Additional CSS class</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>className</CodeCell>
+              <CodeCell $theme={theme}>string</CodeCell>
+              <CodeCell $theme={theme}>undefined</CodeCell>
+              <TableCell $theme={theme}>Additional CSS class</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Type Variants</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Use Case</TableHeader>
-              <TableHeader>Visual Effect</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Use Case</TableHeader>
+              <TableHeader $theme={theme}>Visual Effect</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>primary</CodeCell>
-              <TableCell>Main conversion actions, premium features</TableCell>
-              <TableCell>Blue/purple glow with 50% radial gradient</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>primary</CodeCell>
+              <TableCell $theme={theme}>Main conversion actions, premium features</TableCell>
+              <TableCell $theme={theme}>Blue/purple glow with 50% radial gradient</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>neutral</CodeCell>
-              <TableCell>Secondary important actions</TableCell>
-              <TableCell>White glow with 25% radial gradient</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>neutral</CodeCell>
+              <TableCell $theme={theme}>Secondary important actions</TableCell>
+              <TableCell $theme={theme}>White glow with 25% radial gradient</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>

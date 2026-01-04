@@ -16,6 +16,13 @@ import {
   DocsCodeBlock,
   DocsInlineCode,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 
 const ColorGrid = styled.div`
   display: grid;
@@ -24,13 +31,14 @@ const ColorGrid = styled.div`
   margin: ${spacing[6]} 0;
 `;
 
-const ColorCard = styled.div`
+const ColorCard = styled.div<{ $theme: 'light' | 'dark' }>`
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid ${colors.neutral[200]};
+  border: 1px solid ${props => getBorderColor(props.$theme)};
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: border-color 200ms ease;
 `;
 
 const ColorSwatch = styled.div<{ $color: string }>`
@@ -38,23 +46,26 @@ const ColorSwatch = styled.div<{ $color: string }>`
   background-color: ${props => props.$color};
 `;
 
-const ColorInfo = styled.div`
+const ColorInfo = styled.div<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]};
-  background-color: ${colors.neutral[50]};
+  background-color: ${props => getSurfaceColor(props.$theme)};
+  transition: background-color 200ms ease;
 `;
 
-const ColorName = styled.div`
+const ColorName = styled.div<{ $theme: 'light' | 'dark' }>`
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.medium[400].fontSize};
   font-weight: ${typography.fontWeights.medium};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
   margin-bottom: ${spacing[1]};
+  transition: color 200ms ease;
 `;
 
-const ColorValue = styled.div`
+const ColorValue = styled.div<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 12px;
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
 const ColorRow = styled.div`
@@ -64,7 +75,7 @@ const ColorRow = styled.div`
   flex-wrap: wrap;
 `;
 
-const ColorSample = styled.div<{ $color: string }>`
+const ColorSample = styled.div<{ $color: string; $theme: 'light' | 'dark' }>`
   flex: 1;
   min-width: 100px;
   display: flex;
@@ -73,7 +84,8 @@ const ColorSample = styled.div<{ $color: string }>`
   padding: ${spacing[3]};
   background-color: ${props => props.$color};
   border-radius: 8px;
-  border: 1px solid ${colors.neutral[200]};
+  border: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
 const ColorLabel = styled.span<{ $light?: boolean }>`
@@ -84,6 +96,7 @@ const ColorLabel = styled.span<{ $light?: boolean }>`
 `;
 
 export const ColorsPage: React.FC = () => {
+  const { theme } = useTheme();
   const primaryShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 950];
   const neutralShades = [50, 100, 200, 400, 600, 900, 950];
   const categories = ['comedy', 'nightlife', 'sports', 'music', 'movies', 'wellness', 'themeParks', 'coffee'];
@@ -123,6 +136,7 @@ const ErrorMessage = styled.div\`
             <ColorSample
               key={shade}
               $color={colors.primary[shade as keyof typeof colors.primary] as string}
+              $theme={theme}
             >
               <ColorLabel $light={shade >= 600}>{shade}</ColorLabel>
             </ColorSample>
@@ -142,6 +156,7 @@ colors.primary[50]   // #eef2ff`}</DocsCodeBlock>
             <ColorSample
               key={shade}
               $color={colors.neutral[shade as keyof typeof colors.neutral] as string}
+              $theme={theme}
             >
               <ColorLabel $light={shade >= 600}>{shade}</ColorLabel>
             </ColorSample>
@@ -171,6 +186,7 @@ colors.neutral[50]   // #fafafa (light background)`}</DocsCodeBlock>
                   <ColorSample
                     key={shade}
                     $color={categoryColors[shade]}
+                    $theme={theme}
                   >
                     <ColorLabel $light={shade >= 600}>{shade}</ColorLabel>
                   </ColorSample>
@@ -202,6 +218,7 @@ colors.comedy.alpha[50]  // 50% opacity`}</DocsCodeBlock>
             <ColorSample
               key={alpha}
               $color={colors.primary.alpha[alpha as keyof typeof colors.primary.alpha]}
+              $theme={theme}
             >
               <ColorLabel>{alpha}%</ColorLabel>
             </ColorSample>
@@ -214,6 +231,7 @@ colors.comedy.alpha[50]  // 50% opacity`}</DocsCodeBlock>
             <ColorSample
               key={alpha}
               $color={colors.neutral.light.alpha[alpha as keyof typeof colors.neutral.light.alpha]}
+              $theme={theme}
             >
               <ColorLabel>{alpha}%</ColorLabel>
             </ColorSample>
@@ -226,7 +244,8 @@ colors.comedy.alpha[50]  // 50% opacity`}</DocsCodeBlock>
             <ColorSample
               key={alpha}
               $color={colors.neutral.dark.alpha[alpha as keyof typeof colors.neutral.dark.alpha]}
-              style={{ border: '2px solid #e5e5e5' }}
+              $theme={theme}
+              style={{ border: `2px solid ${theme === 'dark' ? colors.neutral[800] : colors.neutral[200]}` }}
             >
               <ColorLabel $light={alpha >= 50}>{alpha}%</ColorLabel>
             </ColorSample>
@@ -254,32 +273,32 @@ colors.sports.alpha[75]`}</DocsCodeBlock>
           Semantic colors provide meaningful color values for common UI states and feedback.
         </DocsParagraph>
         <ColorGrid>
-          <ColorCard>
+          <ColorCard $theme={theme}>
             <ColorSwatch $color={colors.semantic.success} />
-            <ColorInfo>
-              <ColorName>Success</ColorName>
-              <ColorValue>{colors.semantic.success}</ColorValue>
+            <ColorInfo $theme={theme}>
+              <ColorName $theme={theme}>Success</ColorName>
+              <ColorValue $theme={theme}>{colors.semantic.success}</ColorValue>
             </ColorInfo>
           </ColorCard>
-          <ColorCard>
+          <ColorCard $theme={theme}>
             <ColorSwatch $color={colors.semantic.info} />
-            <ColorInfo>
-              <ColorName>Info</ColorName>
-              <ColorValue>{colors.semantic.info}</ColorValue>
+            <ColorInfo $theme={theme}>
+              <ColorName $theme={theme}>Info</ColorName>
+              <ColorValue $theme={theme}>{colors.semantic.info}</ColorValue>
             </ColorInfo>
           </ColorCard>
-          <ColorCard>
+          <ColorCard $theme={theme}>
             <ColorSwatch $color={colors.semantic.error} />
-            <ColorInfo>
-              <ColorName>Error</ColorName>
-              <ColorValue>{colors.semantic.error}</ColorValue>
+            <ColorInfo $theme={theme}>
+              <ColorName $theme={theme}>Error</ColorName>
+              <ColorValue $theme={theme}>{colors.semantic.error}</ColorValue>
             </ColorInfo>
           </ColorCard>
-          <ColorCard>
+          <ColorCard $theme={theme}>
             <ColorSwatch $color={colors.semantic.warning} />
-            <ColorInfo>
-              <ColorName>Warning</ColorName>
-              <ColorValue>{colors.semantic.warning}</ColorValue>
+            <ColorInfo $theme={theme}>
+              <ColorName $theme={theme}>Warning</ColorName>
+              <ColorValue $theme={theme}>{colors.semantic.warning}</ColorValue>
             </ColorInfo>
           </ColorCard>
         </ColorGrid>

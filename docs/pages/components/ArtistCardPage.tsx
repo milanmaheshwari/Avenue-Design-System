@@ -16,6 +16,13 @@ import {
   DocsParagraph,
   DocsCodeBlock,
 } from '../../layouts/DocsLayout';
+import { useTheme } from '../../contexts/ThemeContext';
+import { 
+  getSurfaceColor, 
+  getBorderColor, 
+  getTextColor, 
+  getTextColorSecondary 
+} from '../../utils/themeColors';
 import demoImage1 from '../../../assets/fae9216881de499113dd7791f82ff50e3aaa7af1.png';
 import demoImage2 from '../../../assets/fd092aafde0b7229084b06b4cb61662024365b50.png';
 
@@ -54,38 +61,47 @@ const VariantLabel = styled.div`
   text-align: center;
 `;
 
-const SpecTable = styled.table`
+const SpecTable = styled.table<{ $theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
   margin: ${spacing[6]} 0;
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.regular[400].fontSize};
+  background-color: ${props => props.$theme === 'dark' ? '#1a1a1a' : 'transparent'};
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 200ms ease;
 `;
 
-const TableHead = styled.thead`
-  background-color: ${colors.neutral[100]};
+const TableHead = styled.thead<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => props.$theme === 'dark' ? '#1f1f1f' : colors.neutral[100]};
+  transition: background-color 200ms ease;
 `;
 
-const TableRow = styled.tr`
-  border-bottom: 1px solid ${colors.neutral[200]};
+const TableRow = styled.tr<{ $theme: 'light' | 'dark' }>`
+  border-bottom: 1px solid ${props => getBorderColor(props.$theme)};
+  transition: border-color 200ms ease;
 `;
 
-const TableHeader = styled.th`
+const TableHeader = styled.th<{ $theme: 'light' | 'dark' }>`
   text-align: left;
   padding: ${spacing[3]} ${spacing[4]};
   font-weight: ${typography.fontWeights.bold};
-  color: ${colors.neutral[900]};
+  color: ${props => getTextColor(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ $theme: 'light' | 'dark' }>`
   padding: ${spacing[3]} ${spacing[4]};
-  color: ${colors.neutral[600]};
+  color: ${props => getTextColorSecondary(props.$theme)};
+  transition: color 200ms ease;
 `;
 
-const CodeCell = styled(TableCell)`
+const CodeCell = styled(TableCell)<{ $theme: 'light' | 'dark' }>`
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 13px;
-  color: ${colors.primary[600]};
+  color: ${props => props.$theme === 'dark' ? colors.primary[400] : colors.primary[600]};
+  transition: color 200ms ease;
 `;
 
 const GuidelineSection = styled.div`
@@ -123,6 +139,7 @@ const GuidelineText = styled.p`
 `;
 
 export const ArtistCardPage: React.FC = () => {
+  const { theme } = useTheme();
   return (
     <DocsLayout currentPath="/components/artist-card">
       <DocsPageHeader
@@ -230,161 +247,161 @@ export const ArtistCardPage: React.FC = () => {
         <DocsSectionTitle>Specifications</DocsSectionTitle>
         
         <DocsSubsectionTitle>Dimensions</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Big Variant</TableHeader>
-              <TableHeader>Small Variant</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Big Variant</TableHeader>
+              <TableHeader $theme={theme}>Small Variant</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Card Width</TableCell>
-              <TableCell>200px</TableCell>
-              <TableCell>120px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Card Width</TableCell>
+              <TableCell $theme={theme}>200px</TableCell>
+              <TableCell $theme={theme}>120px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image Size</TableCell>
-              <TableCell>200×200px</TableCell>
-              <TableCell>120×120px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Size</TableCell>
+              <TableCell $theme={theme}>200×200px</TableCell>
+              <TableCell $theme={theme}>120×120px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image Border Radius</TableCell>
-              <TableCell>40px</TableCell>
-              <TableCell>24px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Border Radius</TableCell>
+              <TableCell $theme={theme}>40px</TableCell>
+              <TableCell $theme={theme}>24px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Content Gap</TableCell>
-              <TableCell>20px</TableCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Content Gap</TableCell>
+              <TableCell $theme={theme}>20px</TableCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Spacing</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Value</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Image-Text Gap (Big)</TableCell>
-              <CodeCell>spacing[5]</CodeCell>
-              <TableCell>20px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image-Text Gap (Big)</TableCell>
+              <CodeCell $theme={theme}>spacing[5]</CodeCell>
+              <TableCell $theme={theme}>20px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Image-Text Gap (Small)</TableCell>
-              <CodeCell>spacing[3]</CodeCell>
-              <TableCell>12px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image-Text Gap (Small)</TableCell>
+              <CodeCell $theme={theme}>spacing[3]</CodeCell>
+              <TableCell $theme={theme}>12px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Name-Genre Gap (Big)</TableCell>
-              <CodeCell>spacing[2]</CodeCell>
-              <TableCell>8px</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Name-Genre Gap (Big)</TableCell>
+              <CodeCell $theme={theme}>spacing[2]</CodeCell>
+              <TableCell $theme={theme}>8px</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Name-Genre Gap (Small)</TableCell>
-              <TableCell>0px</TableCell>
-              <TableCell>Stacked tightly</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Name-Genre Gap (Small)</TableCell>
+              <TableCell $theme={theme}>0px</TableCell>
+              <TableCell $theme={theme}>Stacked tightly</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Typography</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Size</TableHeader>
-              <TableHeader>Weight</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Size</TableHeader>
+              <TableHeader $theme={theme}>Weight</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Artist Name (Big)</TableCell>
-              <CodeCell>typography.desktop.heading[700]</CodeCell>
-              <TableCell>20px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Artist Name (Big)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.heading[700]</CodeCell>
+              <TableCell $theme={theme}>20px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Artist Name (Small)</TableCell>
-              <CodeCell>typography.mobile.heading[600]</CodeCell>
-              <TableCell>14px</TableCell>
-              <TableCell>Bold (700)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Artist Name (Small)</TableCell>
+              <CodeCell $theme={theme}>typography.mobile.heading[600]</CodeCell>
+              <TableCell $theme={theme}>14px</TableCell>
+              <TableCell $theme={theme}>Bold (700)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Genre (Big)</TableCell>
-              <CodeCell>typography.desktop.body.regular[300]</CodeCell>
-              <TableCell>16px</TableCell>
-              <TableCell>Regular (400)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Genre (Big)</TableCell>
+              <CodeCell $theme={theme}>typography.desktop.body.regular[300]</CodeCell>
+              <TableCell $theme={theme}>16px</TableCell>
+              <TableCell $theme={theme}>Regular (400)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Genre (Small)</TableCell>
-              <CodeCell>typography.mobile.body.regular[300]</CodeCell>
-              <TableCell>13px</TableCell>
-              <TableCell>Regular (400)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Genre (Small)</TableCell>
+              <CodeCell $theme={theme}>typography.mobile.body.regular[300]</CodeCell>
+              <TableCell $theme={theme}>13px</TableCell>
+              <TableCell $theme={theme}>Regular (400)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Colors</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Token</TableHeader>
-              <TableHeader>Usage</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Token</TableHeader>
+              <TableHeader $theme={theme}>Usage</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Category Overlay (Music)</TableCell>
-              <CodeCell>colors.music.alpha[5]</CodeCell>
-              <TableCell>5% purple overlay</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Category Overlay (Music)</TableCell>
+              <CodeCell $theme={theme}>colors.music.alpha[5]</CodeCell>
+              <TableCell $theme={theme}>5% purple overlay</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Category Overlay (Comedy)</TableCell>
-              <CodeCell>colors.comedy.alpha[5]</CodeCell>
-              <TableCell>5% yellow overlay</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Category Overlay (Comedy)</TableCell>
+              <CodeCell $theme={theme}>colors.comedy.alpha[5]</CodeCell>
+              <TableCell $theme={theme}>5% yellow overlay</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Artist Name (Music)</TableCell>
-              <CodeCell>colors.music[100]</CodeCell>
-              <TableCell>Light purple tint (#fae8ff)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Artist Name (Music)</TableCell>
+              <CodeCell $theme={theme}>colors.music[100]</CodeCell>
+              <TableCell $theme={theme}>Light purple tint (#fae8ff)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Artist Name (Comedy)</TableCell>
-              <CodeCell>colors.comedy[100]</CodeCell>
-              <TableCell>Light yellow tint (#fef9c3)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Artist Name (Comedy)</TableCell>
+              <CodeCell $theme={theme}>colors.comedy[100]</CodeCell>
+              <TableCell $theme={theme}>Light yellow tint (#fef9c3)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Genre Text</TableCell>
-              <CodeCell>colors[category][100]</CodeCell>
-              <TableCell>Same as artist name</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Genre Text</TableCell>
+              <CodeCell $theme={theme}>colors[category][100]</CodeCell>
+              <TableCell $theme={theme}>Same as artist name</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
 
         <DocsSubsectionTitle>Effects</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Effect</TableHeader>
-              <TableHeader>Value</TableHeader>
-              <TableHeader>Purpose</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Effect</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
+              <TableHeader $theme={theme}>Purpose</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Image Shadow</TableCell>
-              <TableCell>0px 13.714px 27.429px rgba(0,0,0,0.32)</TableCell>
-              <TableCell>Depth and elevation</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Image Shadow</TableCell>
+              <TableCell $theme={theme}>0px 13.714px 27.429px rgba(0,0,0,0.32)</TableCell>
+              <TableCell $theme={theme}>Depth and elevation</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -399,34 +416,34 @@ export const ArtistCardPage: React.FC = () => {
           When an onClick handler is provided, the card becomes interactive with hover and active states.
         </DocsParagraph>
         
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>State</TableHeader>
-              <TableHeader>Property</TableHeader>
-              <TableHeader>Value</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>State</TableHeader>
+              <TableHeader $theme={theme}>Property</TableHeader>
+              <TableHeader $theme={theme}>Value</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Default</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(0)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Default</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(0)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Hover (with onClick)</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(-4px)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Hover (with onClick)</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(-4px)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Active (with onClick)</TableCell>
-              <TableCell>Transform</TableCell>
-              <TableCell>translateY(-2px)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Active (with onClick)</TableCell>
+              <TableCell $theme={theme}>Transform</TableCell>
+              <TableCell $theme={theme}>translateY(-2px)</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>All States</TableCell>
-              <TableCell>Transition</TableCell>
-              <TableCell>250ms cubic-bezier(0.4, 0, 0.2, 1)</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>All States</TableCell>
+              <TableCell $theme={theme}>Transition</TableCell>
+              <TableCell $theme={theme}>250ms cubic-bezier(0.4, 0, 0.2, 1)</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -529,24 +546,24 @@ export const ArtistCardPage: React.FC = () => {
         </DocsParagraph>
 
         <DocsSubsectionTitle>Color Contrast</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Element</TableHeader>
-              <TableHeader>Background</TableHeader>
-              <TableHeader>WCAG Level</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Element</TableHeader>
+              <TableHeader $theme={theme}>Background</TableHeader>
+              <TableHeader $theme={theme}>WCAG Level</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <TableCell>Artist Name (category[100])</TableCell>
-              <TableCell>Dark background</TableCell>
-              <TableCell>AAA</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Artist Name (category[100])</TableCell>
+              <TableCell $theme={theme}>Dark background</TableCell>
+              <TableCell $theme={theme}>AAA</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Genre Text (category[100])</TableCell>
-              <TableCell>Dark background</TableCell>
-              <TableCell>AAA</TableCell>
+            <TableRow $theme={theme}>
+              <TableCell $theme={theme}>Genre Text (category[100])</TableCell>
+              <TableCell $theme={theme}>Dark background</TableCell>
+              <TableCell $theme={theme}>AAA</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
@@ -640,51 +657,51 @@ function ArtistGrid() {
 }`}</DocsCodeBlock>
 
         <DocsSubsectionTitle>Props API</DocsSubsectionTitle>
-        <SpecTable>
-          <TableHead>
-            <TableRow>
-              <TableHeader>Prop</TableHeader>
-              <TableHeader>Type</TableHeader>
-              <TableHeader>Default</TableHeader>
-              <TableHeader>Description</TableHeader>
+        <SpecTable $theme={theme}>
+          <TableHead $theme={theme}>
+            <TableRow $theme={theme}>
+              <TableHeader $theme={theme}>Prop</TableHeader>
+              <TableHeader $theme={theme}>Type</TableHeader>
+              <TableHeader $theme={theme}>Default</TableHeader>
+              <TableHeader $theme={theme}>Description</TableHeader>
             </TableRow>
           </TableHead>
           <tbody>
-            <TableRow>
-              <CodeCell>size</CodeCell>
-              <TableCell>'big' | 'small'</TableCell>
-              <TableCell>'big'</TableCell>
-              <TableCell>Size variant of the card</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>size</CodeCell>
+              <TableCell $theme={theme}>'big' | 'small'</TableCell>
+              <TableCell $theme={theme}>'big'</TableCell>
+              <TableCell $theme={theme}>Size variant of the card</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>name</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Artist or performer name</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>name</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Artist or performer name</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>genre</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Genre or performance type</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>genre</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Genre or performance type</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>imageUrl</CodeCell>
-              <TableCell>string</TableCell>
-              <TableCell>required</TableCell>
-              <TableCell>Artist image URL (1:1 ratio recommended)</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>imageUrl</CodeCell>
+              <TableCell $theme={theme}>string</TableCell>
+              <TableCell $theme={theme}>required</TableCell>
+              <TableCell $theme={theme}>Artist image URL (1:1 ratio recommended)</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>category</CodeCell>
-              <TableCell>ArtistCategory</TableCell>
-              <TableCell>'music'</TableCell>
-              <TableCell>Category for color theming</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>category</CodeCell>
+              <TableCell $theme={theme}>ArtistCategory</TableCell>
+              <TableCell $theme={theme}>'music'</TableCell>
+              <TableCell $theme={theme}>Category for color theming</TableCell>
             </TableRow>
-            <TableRow>
-              <CodeCell>onClick</CodeCell>
-              <TableCell>{'() => void'}</TableCell>
-              <TableCell>undefined</TableCell>
-              <TableCell>Optional click handler</TableCell>
+            <TableRow $theme={theme}>
+              <CodeCell $theme={theme}>onClick</CodeCell>
+              <TableCell $theme={theme}>{'() => void'}</TableCell>
+              <TableCell $theme={theme}>undefined</TableCell>
+              <TableCell $theme={theme}>Optional click handler</TableCell>
             </TableRow>
           </tbody>
         </SpecTable>
