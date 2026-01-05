@@ -43,20 +43,22 @@ const VariantGrid = styled.div`
   margin-bottom: ${spacing[8]};
 `;
 
-const VariantCard = styled.div`
-  background-color: ${colors.neutral[900]};
-  border: 1px solid ${colors.neutral[800]};
+const VariantCard = styled.div<{ $theme: 'light' | 'dark' }>`
+  background-color: ${props => getSurfaceColor(props.$theme)};
+  border: 1px solid ${props => getBorderColor(props.$theme)};
   border-radius: 12px;
   padding: ${spacing[6]};
+  transition: background-color 200ms ease, border-color 200ms ease;
 `;
 
-const VariantLabel = styled.div`
+const VariantLabel = styled.div<{ $theme: 'light' | 'dark' }>`
   font-family: ${typography.fontFamily.primary};
   font-size: ${typography.desktop.body.medium[300].fontSize};
   font-weight: ${typography.fontWeights.medium};
-  color: ${colors.neutral.light.alpha[90]};
+  color: ${props => getTextColorSecondary(props.$theme)};
   margin-bottom: ${spacing[4]};
   text-align: center;
+  transition: color 200ms ease;
 `;
 
 const VariantPreview = styled.div`
@@ -167,15 +169,15 @@ export const ButtonPrimaryPage = () => {
         </DocsParagraph>
         
         <VariantGrid>
-          <VariantCard>
-            <VariantLabel>Big (160px)</VariantLabel>
+          <VariantCard $theme={theme}>
+            <VariantLabel $theme={theme}>Big (160px)</VariantLabel>
             <VariantPreview>
               <ButtonPrimary size="big" theme="wellness">Button</ButtonPrimary>
             </VariantPreview>
           </VariantCard>
           
-          <VariantCard>
-            <VariantLabel>Small (152px)</VariantLabel>
+          <VariantCard $theme={theme}>
+            <VariantLabel $theme={theme}>Small (152px)</VariantLabel>
             <VariantPreview>
               <ButtonPrimary size="small" theme="wellness">View More</ButtonPrimary>
             </VariantPreview>
